@@ -1,11 +1,25 @@
 import React from 'react';
 import styles from './style.module.scss';
+import { useAppDispatch } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { deleteUser } from '../../redux/slices/userSlice';
 
 export const DropDown: React.FC = () => {
    const [open, setOpen] = React.useState<boolean>(false);
    const dropDownRef = React.useRef<HTMLDivElement>(null);
+   const { id } = useParams();
+   const dispatch = useAppDispatch();
 
    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      setOpen((open) => !open);
+   };
+
+   const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+      setOpen((open) => !open);
+   };
+
+   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+      dispatch(deleteUser()); // id
       setOpen((open) => !open);
    };
 
@@ -32,8 +46,8 @@ export const DropDown: React.FC = () => {
          </button>
          {open && (
             <span className={styles.action}>
-               <button onClick={handleClick}>Изменить</button>
-               <button onClick={handleClick}>Удалить</button>
+               <button onClick={onClickEdit}>Изменить</button>
+               <button onClick={onClickDelete}>Удалить</button>
             </span>
          )}
       </div>

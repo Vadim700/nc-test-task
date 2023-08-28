@@ -13,7 +13,7 @@ export const Content: React.FC<ContentProps> = () => {
    return (
       <div className={styles.root}>
          <Routes>
-            <Route index element={<Notes />} />
+            <Route path="notes" element={<Notes />} />
             <Route path="consultation" element={<Consultation />} />
             <Route path="movies" element={<Movies />} />
             <Route path="events" element={<Events />} />

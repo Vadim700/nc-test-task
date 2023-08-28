@@ -134,6 +134,7 @@
 	display: flex;
 	align-items: center;
 	color: var(--gray);
+	cursor: pointer;
 
 	input {
 		margin-right: 10px;
@@ -164,4 +165,24 @@
 
 	width: 18px;
 	height: 18px;
+	position: relative;
+
+	cursor: pointer;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-o-appearance: none;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&:checked {
+		border: none;
+		&::before {
+			content: url("../../../public/images/icons/checkbox.png");
+		}
+	}
 }

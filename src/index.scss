@@ -8,10 +8,12 @@
    --grey-1: #cdcdcd;
    --grey-2: #f1f2f3;
    --blue: #4198c5;
+   --blue-1: #4198c5;
    --red: #ff0000;
 
    --stroke: var(--grey-1);
    --bg: var(--grey-2);
+   --checkbox: var(--blue-1);
 }
 
 body {
@@ -55,4 +57,9 @@ body,
    max-width: 1140px;
    margin: 0 auto;
    padding: 0 15px;
+}
+
+.grid {
+   display: grid;
+   grid-template-rows: auto auto 1fr;
 }

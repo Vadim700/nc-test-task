@@ -9,7 +9,16 @@ type SideBarProps = {};
 
 export const SideBar: FC<SideBarProps> = () => {
    const [visibleSearch, setVisibleSearch] = React.useState<boolean>(false);
-   const [actionsVisible, setActionsVisible] = React.useState<boolean>(false);
+   const [actionsVisible, setActionsVisible] = React.useState<boolean>(true);
+   const [allChecked, setAllChecked] = React.useState<boolean>(false);
+
+   const onClickActionVisible = () => {
+      setActionsVisible((visible) => !visible);
+   };
+
+   const onClickMainCheckbox = () => {
+      setAllChecked((allChecked) => !allChecked);
+   };
 
    return (
       <aside className={styles.root}>
@@ -49,7 +58,7 @@ export const SideBar: FC<SideBarProps> = () => {
                   <span className={styles.count}>213</span>
                   <button
                      className={styles.button}
-                     onClick={() => setActionsVisible((visible) => !visible)}
+                     onClick={onClickActionVisible}
                   >
                      Выбрать
                   </button>
@@ -57,7 +66,12 @@ export const SideBar: FC<SideBarProps> = () => {
             ) : (
                <>
                   <label className={styles.label}>
-                     <input className={styles.checkbox} type="checkbox" />
+                     <input
+                        className={styles.checkbox}
+                        type="checkbox"
+                        onClick={onClickMainCheckbox}
+                        style={{ marginLeft: '-5px' }}
+                     />
                      Все
                   </label>
                   <span className={styles.selected}>1</span>
@@ -65,14 +79,14 @@ export const SideBar: FC<SideBarProps> = () => {
                   <button className={styles.button}>Действия</button>
                   <button
                      className={styles.button}
-                     onClick={() => setActionsVisible((visible) => !visible)}
+                     onClick={onClickActionVisible}
                   >
                      Отменить
                   </button>
                </>
             )}
          </div>
-         <SideBarList />
+         <SideBarList actionsVisible={actionsVisible} allChecked={allChecked} />
       </aside>
    );
 };

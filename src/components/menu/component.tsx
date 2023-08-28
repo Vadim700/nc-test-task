@@ -11,14 +11,14 @@ type IsActiveProps = {
 
 export const Menu: React.FC<MenuProps> = () => {
    const setActive = ({ isActive }: IsActiveProps): React.CSSProperties => {
-      return { color: isActive ? 'var(--blue)' : 'var(--black)' };
+      return { color: isActive ? 'var(--blue)' : 'var(--gray)' };
    };
 
    return (
       <nav className={styles.root}>
          <ul className={styles.list}>
             <li className={styles.listItem}>
-               <NavLink to={'/'} className={styles.link} style={setActive}>
+               <NavLink to={'notes'} className={styles.link} style={setActive}>
                   Заметки
                </NavLink>
             </li>
@@ -44,7 +44,7 @@ export const Menu: React.FC<MenuProps> = () => {
          </ul>
          <button className={styles.addItem}>
             <Routes>
-               <Route index element={<span>Новая заметка</span>} />
+               <Route index path="notes" element={<span>Новая заметка</span>} />
                <Route path="consultation" element={<span>Записать</span>} />
                <Route path="movies" element={<span>Рекомендовать</span>} />
                <Route path="events" element={<span>Рекомендовать</span>} />

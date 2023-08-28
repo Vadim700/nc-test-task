@@ -31,12 +31,10 @@ type MoviesProps = {};
 
 export const Movies: React.FC<MoviesProps> = () => {
    return (
-      <div className={styles.root}>
-         <ul className={styles.list}>
-            {movis.map((item) => (
-               <MoviesItem {...item} key={item.id} />
-            ))}
-         </ul>
-      </div>
+      <ul className={styles.list}>
+         {movis.map((item) => (
+            <MoviesItem {...item} key={item.id} />
+         ))}
+      </ul>
    );
 };

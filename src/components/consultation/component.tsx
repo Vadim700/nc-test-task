@@ -25,12 +25,10 @@ const consultation = [
 
 export const Consultation = () => {
    return (
-      <div className={styles.root}>
-         <ul className={styles.list}>
-            {consultation.map((item) => (
-               <ConsultationItem {...item} key={item.id} />
-            ))}
-         </ul>
-      </div>
+      <ul className={styles.list}>
+         {consultation.map((item) => (
+            <ConsultationItem {...item} key={item.id} />
+         ))}
+      </ul>
    );
 };

@@ -35,10 +35,10 @@ const events = [
 
 export const Events = () => {
    return (
-      <div className={styles.root}>
+      <ul className={styles.list}>
          {events.map((item) => (
             <EventsItem {...item} key={item.id} />
          ))}
-      </div>
+      </ul>
    );
 };
