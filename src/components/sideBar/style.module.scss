@@ -1,0 +1,167 @@
+.root {
+	display: flex;
+	flex-direction: column;
+
+	row-gap: 15px;
+}
+
+.header {
+	background-color: var(--white);
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	height: 60px;
+	padding: 0 10px;
+
+	border-radius: 4px;
+	background: var(--unnamed, #fff);
+	box-shadow: 0px 1px 4px 0px rgba(19, 19, 19, 0.1);
+
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 34px;
+		width: 34px;
+		padding: 0;
+
+		border-radius: 50%;
+		border: none;
+		color: var(--gray);
+
+		@media (hover: hover) {
+			&:hover {
+				background-color: #4198c5;
+				color: var(--white);
+			}
+		}
+
+		&:first-child {
+			cursor: pointer;
+			margin-right: auto;
+		}
+	}
+}
+
+.searchBlock {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: 14px;
+
+	width: 100%;
+	height: 38px;
+
+	& .label {
+		display: flex;
+		align-items: center;
+		flex: 1;
+
+		padding: 9px 9px;
+
+		border-radius: 90px;
+		border: 1px solid var(--cdcdcd, #cdcdcd);
+		color: var(--gray);
+
+		svg {
+			margin-left: -2px;
+		}
+
+		input {
+			font-family: "SF Pro Display", sans-serif;
+			border: none;
+			outline: none;
+			padding-left: 10px;
+		}
+	}
+
+	button {
+		transform: rotate(45deg);
+		cursor: pointer;
+	}
+}
+
+.action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 10px;
+	padding: 0px 10px 0px 15px;
+
+	button {
+		margin: 0;
+		padding: 0;
+
+		color: var(--gray);
+		font-family: SF Pro Display;
+		font-feature-settings:
+			"clig" off,
+			"liga" off;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.42;
+
+		border: none;
+		cursor: pointer;
+
+		&:last-child {
+			margin-left: 5px;
+		}
+	}
+}
+
+.count {
+	padding: 2px 0px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-family: SF Pro Display;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--white);
+	min-width: 28px;
+
+	border-radius: 9px;
+	background: var(--gray);
+}
+
+.label {
+	display: flex;
+	align-items: center;
+	color: var(--gray);
+
+	input {
+		margin-right: 10px;
+	}
+}
+
+.selected {
+	margin-right: auto;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 1;
+	padding: 2px 0;
+
+	background-color: var(--blue);
+	color: var(--white);
+
+	min-width: 28px;
+
+	border-radius: 9px;
+}
+
+.checkbox {
+	border-radius: 4px;
+	border: 1px solid var(--stroke);
+	background: var(--white);
+
+	width: 18px;
+	height: 18px;
+}

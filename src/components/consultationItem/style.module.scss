@@ -1,0 +1,88 @@
+.item {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+
+	border-radius: 4px;
+	border: 1px solid var(--stroke);
+	padding: 10px;
+
+	stroke-width: 1px;
+	filter: drop-shadow(0px 0px 4px rgba(47, 47, 47, 0.07));
+	background: var(--white);
+
+	@media (hover: hover) {
+		&:hover {
+			border-color: var(--blue);
+
+			& .icon {
+				background-color: var(--blue);
+
+				svg {
+					rect {
+						fill: var(--blue);
+						opacity: 1;
+					}
+					path {
+						fill: var(--white);
+					}
+				}
+			}
+		}
+	}
+}
+
+.icon {
+	width: 40px;
+	height: 40px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--bg);
+	border-radius: 50%;
+
+	svg {
+		rect {
+			fill: var(--bg);
+			opacity: 1;
+		}
+		path {
+			fill: var(--gray);
+		}
+	}
+}
+
+.description {
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+	row-gap: 14px;
+
+	p {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1;
+		text-decoration: none;
+	}
+}
+
+.data {
+	color: var(--gray);
+	font-size: 14px;
+	line-height: normal;
+}
+
+.error {
+	position: absolute;
+
+	bottom: 7px;
+	right: 10px;
+
+	color: var(--unnamed, #f00);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42;
+}

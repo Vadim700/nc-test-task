@@ -1,0 +1,60 @@
+.root {
+	li a {
+		text-decoration: none;
+		color: inherit;
+	}
+}
+
+.item {
+	position: relative;
+
+	&:not(:last-child) {
+		margin-bottom: 20px;
+		padding-right: 49px;
+	}
+
+	p {
+		margin: 0;
+	}
+}
+
+.text {
+	margin-top: 0;
+	color: var(--black);
+	font-family: SF Pro Display;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 24px;
+	padding-right: 35px;
+
+	span {
+		font-size: 14px;
+		margin-right: 10px;
+	}
+}
+
+.image {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	margin-top: 6px;
+
+	border-radius: 4px;
+	background: var(--cdcdcd, #cdcdcd);
+
+	img {
+		width: 100%;
+		max-width: 199px;
+		height: auto;
+		object-fit: cover;
+	}
+}
+
+.dropDown {
+	position: absolute;
+
+	top: 0;
+	right: 0;
+}

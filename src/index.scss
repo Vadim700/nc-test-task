@@ -1,0 +1,58 @@
+@import-normalize;
+
+:root {
+   --white: #ffffff;
+   --black: #161718;
+   --orange: #ec8532;
+   --gray: #616f82;
+   --grey-1: #cdcdcd;
+   --grey-2: #f1f2f3;
+   --blue: #4198c5;
+   --red: #ff0000;
+
+   --stroke: var(--grey-1);
+   --bg: var(--grey-2);
+}
+
+body {
+   margin: 0;
+   font-family: "SF Pro Display", sans-serif;
+
+   font-family: SF Pro Display;
+   font-size: 14px;
+   line-height: 1.42;
+   font-weight: 400;
+   font-style: normal;
+   color: var(--black);
+}
+
+code {
+   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+:root,
+body,
+#root {
+   height: 100%;
+   min-width: 320px;
+}
+
+.App {
+   min-height: 100%;
+   margin-top: 50px;
+
+   padding: 30px 0 119px;
+
+   background: var(--f-1-f-2-f-4, #f1f2f3);
+   box-shadow: 0px 2px 10px 0px rgba(22, 23, 24, 0.08);
+}
+
+.container {
+   display: grid;
+   grid-template-columns: auto 1fr;
+   column-gap: 30px;
+
+   max-width: 1140px;
+   margin: 0 auto;
+   padding: 0 15px;
+}

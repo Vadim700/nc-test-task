@@ -1,0 +1,33 @@
+.root {
+	position: relative;
+
+	display: flex;
+	column-gap: 14px;
+	padding: 10px;
+
+	border-radius: 4px;
+	background: var(--white);
+	box-shadow: 0px 1px 4px 0px rgba(30, 30, 30, 0.1);
+}
+
+.row {
+	padding-top: 5px;
+
+	font-size: 16px;
+	line-height: 1.25;
+}
+
+.name {
+}
+
+.age {
+	font-size: 12px;
+	line-height: normal;
+}
+
+.edit {
+	position: absolute;
+
+	top: 13px;
+	right: 16px;
+}
