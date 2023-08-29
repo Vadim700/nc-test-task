@@ -67,7 +67,7 @@ const users: User[] = [
       id: 7,
       photo: '../../../images/png/image-5.png',
       name: 'Форс Александр',
-      fullName: 'Форс Александр Форсмажорович',
+      fullName: 'Форс Александр Мажорович',
       age: 42,
       sex: 'муж',
       selected: false,
@@ -137,13 +137,39 @@ export const userSlice = createSlice({
    name: 'users',
    initialState,
    reducers: {
-      fetchUsers: (state) => {},
-      deleteUser: (state, action: PayloadAction) => {
+      removeUser: (state, action: PayloadAction<number>) => {
+         state.list = state.list.filter((item) => item.id !== action.payload);
+      },
+
+      editUser: (state, action: PayloadAction<number>) => {
+         const user = state.list.find((item) => item.id === action.payload);
+      },
+
+      toggleUserSelected: (state, action: PayloadAction<number>) => {
+         state.list[action.payload - 1].selected =
+            !state.list[action.payload - 1].selected;
+      },
+
+      setSelectAll: (state, action: PayloadAction<boolean>) => {
+         state.list.map((item) => (item.selected = !action.payload));
+      },
+
+      deleteSelectedUsers: (state, action: PayloadAction<number[]>) => {
          console.log(action.payload, '>>> action.payload');
+         state.list = [...state.list].filter(
+            (item) => !action.payload.includes(item.id),
+         );
       },
    },
 });
 
-export const { fetchUsers, deleteUser } = userSlice.actions;
+export const {
+   // fetchUsers,
+   removeUser,
+   editUser,
+   toggleUserSelected,
+   setSelectAll,
+   deleteSelectedUsers,
+} = userSlice.actions;
 
 export default userSlice.reducer;

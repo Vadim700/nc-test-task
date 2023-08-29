@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import styles from './style.module.scss';
 import { NavLink } from 'react-router-dom';
+import { toggleUserSelected } from '../../redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type SideBarItemProps = {
    id: number;
@@ -10,8 +12,17 @@ type SideBarItemProps = {
    selected: boolean;
    mark: string;
    actionsVisible: boolean;
-   allChecked: boolean;
 };
+
+interface SetActiveProps {
+   isActive: boolean;
+}
+
+interface ActiveStyles {
+   backgroundColor: string;
+   outline: string;
+   cursor: string;
+}
 
 export const SideBarItem: FC<SideBarItemProps> = ({
    id,
@@ -21,20 +32,29 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    selected,
    mark,
    actionsVisible,
-   allChecked,
 }) => {
-   const [checked, setChecked] = React.useState<boolean>(false);
+   const [checked, setChecked] = React.useState<boolean>(true);
+   const dispatch = useAppDispatch();
 
-   const handleChange = () => {
+   const onClickItemList = (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (!actionsVisible) {
-         setChecked((selected) => !selected);
+         e.preventDefault();
       }
    };
 
-   const setActive = ({ isActive }: any): any => {
+   const onClickCheckbox = () => {
+      dispatch(toggleUserSelected(id));
+   };
+
+   React.useEffect(() => {
+      setChecked((checked) => !checked);
+   }, [selected]);
+
+   const setActive = ({ isActive }: SetActiveProps): ActiveStyles => {
       return {
          backgroundColor: isActive ? 'var(--grey-2)' : 'var(--white)',
          outline: isActive ? '1px solid var(--white)' : '',
+         cursor: !actionsVisible ? 'auto' : 'pointer',
       };
    };
 
@@ -43,15 +63,15 @@ export const SideBarItem: FC<SideBarItemProps> = ({
          <NavLink
             to={`${id}/notes`}
             className={styles.label}
-            onClick={handleChange}
+            onClick={onClickItemList}
             style={setActive}
          >
             {!actionsVisible && (
                <input
                   className={styles.checkbox}
                   type="checkbox"
-                  checked={allChecked ? allChecked : checked}
-                  onChange={handleChange}
+                  checked={checked}
+                  onChange={onClickCheckbox}
                />
             )}
             <div

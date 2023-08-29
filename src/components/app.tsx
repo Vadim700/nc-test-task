@@ -5,7 +5,6 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Body } from './body/component';
 import { useAppDispatch } from '../hooks';
-import { fetchUsers } from '../redux/slices/userSlice';
 
 export const App = (): JSX.Element => {
    const navigate = useNavigate();
@@ -15,10 +14,6 @@ export const App = (): JSX.Element => {
       const goHome = () => navigate('/2/notes');
       return goHome();
    }, []);
-
-   // React.useEffect(() => {
-   //    dispatch(fetchUsers());
-   // }, [dispatch]);
 
    return (
       <div className="App">

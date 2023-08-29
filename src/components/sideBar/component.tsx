@@ -4,6 +4,11 @@ import { SideBarList } from '../sideBarList/component';
 import { ReactComponent as SearchIcon } from '../../svg/Search.svg';
 import { ReactComponent as FilterIcon } from '../../svg/Filter.svg';
 import { ReactComponent as PlusIcon } from '../../svg/Plus.svg';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+   deleteSelectedUsers,
+   setSelectAll,
+} from '../../redux/slices/userSlice';
 
 type SideBarProps = {};
 
@@ -11,6 +16,14 @@ export const SideBar: FC<SideBarProps> = () => {
    const [visibleSearch, setVisibleSearch] = React.useState<boolean>(false);
    const [actionsVisible, setActionsVisible] = React.useState<boolean>(true);
    const [allChecked, setAllChecked] = React.useState<boolean>(false);
+   const dispatch = useAppDispatch();
+
+   const data = useAppSelector((user) => user.users.list);
+   const dataLength = data.length;
+   const selectedLength = data.filter((item) => item.selected === true).length;
+   const dataSelected = data
+      .filter((item) => item.selected === true)
+      .map((item) => item.id);
 
    const onClickActionVisible = () => {
       setActionsVisible((visible) => !visible);
@@ -18,6 +31,7 @@ export const SideBar: FC<SideBarProps> = () => {
 
    const onClickMainCheckbox = () => {
       setAllChecked((allChecked) => !allChecked);
+      dispatch(setSelectAll(allChecked));
    };
 
    return (
@@ -55,7 +69,7 @@ export const SideBar: FC<SideBarProps> = () => {
          <div className={styles.action}>
             {actionsVisible ? (
                <>
-                  <span className={styles.count}>213</span>
+                  <span className={styles.count}>{dataLength}</span>
                   <button
                      className={styles.button}
                      onClick={onClickActionVisible}
@@ -74,9 +88,19 @@ export const SideBar: FC<SideBarProps> = () => {
                      />
                      Все
                   </label>
-                  <span className={styles.selected}>1</span>
-
-                  <button className={styles.button}>Действия</button>
+                  <span className={styles.selected}>{selectedLength}</span>
+                  {selectedLength ? (
+                     <button
+                        className={styles.button}
+                        onClick={() =>
+                           dispatch(deleteSelectedUsers(dataSelected))
+                        }
+                     >
+                        Удалить
+                     </button>
+                  ) : (
+                     ''
+                  )}
                   <button
                      className={styles.button}
                      onClick={onClickActionVisible}
@@ -86,7 +110,7 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </div>
-         <SideBarList actionsVisible={actionsVisible} allChecked={allChecked} />
+         <SideBarList actionsVisible={actionsVisible} />
       </aside>
    );
 };

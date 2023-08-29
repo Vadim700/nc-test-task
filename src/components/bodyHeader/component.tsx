@@ -3,6 +3,7 @@ import styles from './style.module.scss';
 import { DropDown } from '../dropDown/component';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { LoaderHeaderBody } from '../loaderBodyHeader/components';
 
 type BodyHeaderProps = {};
 
@@ -26,7 +27,8 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
          <div className={styles.row}>
             <div className={styles.name}>{user?.fullName}</div>
             <span className={styles.age}>
-               {user?.age + ' лет'}, {user?.sex}
+               {user?.age ? user?.age + ' лет,' : <LoaderHeaderBody />}{' '}
+               {user?.sex}
             </span>
          </div>
          <span className={styles.edit}>

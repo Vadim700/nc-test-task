@@ -5,14 +5,14 @@ import { useAppSelector } from '../../hooks';
 
 type SideBarListProps = {
    actionsVisible: boolean;
-   allChecked: boolean;
 };
 
-export const SideBarList: FC<SideBarListProps> = ({
-   actionsVisible,
-   allChecked,
-}) => {
+export const SideBarList: FC<SideBarListProps> = ({ actionsVisible }) => {
    const list = useAppSelector((item) => item.users.list);
+   console.log(
+      list.map((i) => i.id),
+      '>>> state.list',
+   );
 
    return (
       <ul className={styles.root}>
@@ -21,7 +21,6 @@ export const SideBarList: FC<SideBarListProps> = ({
                key={user.id}
                {...user}
                actionsVisible={actionsVisible}
-               allChecked={allChecked}
             />
          ))}
       </ul>
