@@ -25,9 +25,9 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
             />
          </div>
          <div className={styles.row}>
-            <div className={styles.name}>{user?.fullName}</div>
+            <div className={styles.name}>{user?.name}</div>
             <span className={styles.age}>
-               {user?.age ? user?.age + ' лет,' : <LoaderHeaderBody />}{' '}
+               {user?.age ? user?.age + ' лет,' : <LoaderHeaderBody />}
                {user?.sex}
             </span>
          </div>

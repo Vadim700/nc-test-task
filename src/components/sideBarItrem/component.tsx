@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import styles from './style.module.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { toggleUserSelected } from '../../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type SideBarItemProps = {
    id: number;
-   photo: string;
+   photo?: string;
    name: string;
-   fullName: string;
-   selected: boolean;
-   mark: string;
+   fullName?: string;
+   selected?: boolean;
+   mark?: string;
    actionsVisible: boolean;
 };
 
@@ -58,6 +58,13 @@ export const SideBarItem: FC<SideBarItemProps> = ({
       };
    };
 
+   const user = useAppSelector((user) => user.users.list).find(
+      (item) => item.id === Number(id),
+   );
+
+   const userName = name.split(' ')[0] + ' ' + name.split(' ')[1];
+   const singleWord = name.split(' ')[0];
+
    return (
       <li className={styles.root}>
          <NavLink
@@ -83,7 +90,9 @@ export const SideBarItem: FC<SideBarItemProps> = ({
                   alt="user"
                />
             </div>
-            <div className={styles.name}>{name}</div>
+            <div className={styles.name}>
+               {name.split(' ')[1] ? userName : singleWord}
+            </div>
             {mark && (
                <span className={styles.mark}>
                   <img src={mark} alt="mark" />

@@ -9,6 +9,7 @@ import {
    deleteSelectedUsers,
    setSelectAll,
 } from '../../redux/slices/userSlice';
+import { FormUser } from '../formUser/component';
 
 type SideBarProps = {};
 
@@ -16,9 +17,12 @@ export const SideBar: FC<SideBarProps> = () => {
    const [visibleSearch, setVisibleSearch] = React.useState<boolean>(false);
    const [actionsVisible, setActionsVisible] = React.useState<boolean>(true);
    const [allChecked, setAllChecked] = React.useState<boolean>(false);
-   const dispatch = useAppDispatch();
+   const [value, setValue] = React.useState<string>('');
+   const [openForm, setOpenForm] = React.useState<boolean>(false);
 
+   const dispatch = useAppDispatch();
    const data = useAppSelector((user) => user.users.list);
+
    const dataLength = data.length;
    const selectedLength = data.filter((item) => item.selected === true).length;
    const dataSelected = data
@@ -34,6 +38,14 @@ export const SideBar: FC<SideBarProps> = () => {
       dispatch(setSelectAll(allChecked));
    };
 
+   // const onSubmit = () => {};
+
+   const newUserButtonStyle = {
+      transform: openForm ? 'rotate(45deg)' : '',
+      backgroundColor: openForm ? 'var(--blue)' : '',
+      color: openForm ? 'var(--white)' : '',
+   };
+
    return (
       <aside className={styles.root}>
          <header className={styles.header}>
@@ -41,7 +53,11 @@ export const SideBar: FC<SideBarProps> = () => {
                <div className={styles.searchBlock}>
                   <label className={styles.label}>
                      <SearchIcon />
-                     <input type="text" />
+                     <input
+                        type="text"
+                        onChange={(e) => setValue(e.target.value)}
+                        value={value}
+                     />
                   </label>
                   <button
                      onClick={() => setVisibleSearch((visible) => !visible)}
@@ -55,17 +71,22 @@ export const SideBar: FC<SideBarProps> = () => {
                      className={styles.search}
                      onClick={() => setVisibleSearch((visible) => !visible)}
                   >
-                     <SearchIcon />
+                     <SearchIcon title="Поиск" />
                   </button>
                   <button className={styles.filter}>
-                     <FilterIcon />
+                     <FilterIcon title="Фильтр" />
                   </button>
-                  <button>
+                  <button
+                     title={openForm ? 'Закрыть' : 'Добавать пользователя'}
+                     onClick={() => setOpenForm((open) => !open)}
+                     style={newUserButtonStyle}
+                  >
                      <PlusIcon />
                   </button>
                </>
             )}
          </header>
+         {openForm && <FormUser props="newUser" />}
          <div className={styles.action}>
             {actionsVisible ? (
                <>
@@ -110,7 +131,7 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </div>
-         <SideBarList actionsVisible={actionsVisible} />
+         <SideBarList actionsVisible={actionsVisible} value={value} />
       </aside>
    );
 };

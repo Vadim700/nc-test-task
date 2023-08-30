@@ -1,10 +1,10 @@
 export type User = {
    id: number;
-   photo: string;
+   photo?: string;
    name: string;
-   fullName: string;
+   fullName?: string;
    age: number;
-   sex: string;
-   selected: boolean;
-   mark: string;
+   sex?: string;
+   selected?: boolean;
+   mark?: string;
 };

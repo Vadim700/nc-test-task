@@ -4,10 +4,17 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { removeUser, editUser } from '../../redux/slices/userSlice';
 import { User } from '../../types';
+import { UserModal } from '../UserModal/component';
 
 export const DropDown: React.FC = () => {
    const [open, setOpen] = React.useState<boolean>(false);
    const dropDownRef = React.useRef<HTMLDivElement>(null);
+
+   const arrayUserId = useAppSelector((user) => user.users.list).map(
+      (item) => item.id,
+   );
+   const minId = Math.min(...arrayUserId);
+
    const navigate = useNavigate();
 
    const { id } = useParams() as { id: string };
@@ -21,27 +28,21 @@ export const DropDown: React.FC = () => {
       setOpen((open) => !open);
    };
 
-   const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (user) {
-         dispatch(editUser(user.id));
-      }
-      setOpen((open) => !open);
-   };
+   // const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+   //    if (user) {
+   //       dispatch(editUser(user.id));
+   //    }
+   //    setOpen((open) => !open);
+   // };
 
    const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (user) {
          dispatch(removeUser(user.id));
-         parseInt(id) === 0
-            ? navigate(`/${parseInt(id) - 1}/notes`)
-            : navigate(`/${parseInt(id) + 1}/notes`); // ???
+         parseInt(id) === minId
+            ? navigate(`/${parseInt(id) + 1}/notes`)
+            : navigate(`/${parseInt(id) - 1}/notes`); // ???
       }
       setOpen((open) => !open);
-   };
-
-   const onDocumentClick = (e: any) => {
-      if (!e.target.closest('button')) {
-         setOpen(false);
-      }
    };
 
    React.useEffect(() => {
@@ -50,6 +51,13 @@ export const DropDown: React.FC = () => {
             setOpen(false);
          }
       };
+
+      const onDocumentClick = (e: any) => {
+         if (!e.target.closest('button') && !e.target.closest('.MuiBox-root')) {
+            setOpen(false);
+         }
+      };
+
       document.addEventListener('keydown', handleEsc);
       document.addEventListener('click', onDocumentClick);
 
@@ -69,7 +77,7 @@ export const DropDown: React.FC = () => {
          </button>
          {open && (
             <span className={styles.action}>
-               <button onClick={onClickEdit}>Изменить</button>
+               <UserModal />
                <button onClick={onClickDelete}>Удалить</button>
             </span>
          )}
