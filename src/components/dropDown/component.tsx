@@ -78,7 +78,7 @@ export const DropDown: React.FC<DropDownProps> = ({ props, idNote }) => {
       <div className={styles.root} ref={dropDownRef}>
          <button
             className={open ? styles.active : styles.open}
-            onClick={handleClick}
+            onClick={() => setOpen((open) => !open)}
          >
             <span></span>
          </button>
