@@ -1,0 +1,60 @@
+.root {
+}
+
+.form {
+}
+
+.textarea {
+	margin-bottom: 15px;
+	display: flex;
+
+	textarea {
+		width: 100%;
+		min-height: 160px;
+		padding: 9px;
+
+		resize: none;
+		border: none;
+		outline: none;
+		border-radius: 4px;
+		box-shadow: 0px 1px 4px 0px rgba(19, 19, 19, 0.1);
+		border: 1px solid var(--stroke);
+
+		font-size: 16px;
+		line-height: 1.25;
+
+		&::placeholder {
+			font-size: 14px;
+		}
+	}
+}
+
+.button {
+	padding: 9px;
+	border-radius: 4px;
+	box-shadow: 0px 1px 4px 0px rgba(19, 19, 19, 0.1);
+	background-color: var(--stroke);
+	width: 100%;
+
+	border: none;
+
+	font-size: 14px;
+	line-height: 1.25;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+
+	&:focus {
+		background-color: var(--blue);
+		color: white;
+		box-shadow: 0px 4px 4px 0px rgba(19, 19, 19, 0.1);
+		outline: none;
+	}
+
+	@media (hover: hover) {
+		&:hover {
+			background-color: var(--blue);
+			color: white;
+			box-shadow: 0px 4px 4px 0px rgba(19, 19, 19, 0.1);
+		}
+	}
+}

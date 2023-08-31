@@ -34,6 +34,8 @@ export const FormUser: React.FC<FoumUserProps> = ({
       e.preventDefault();
       props === 'newUser' && dispatch(addNewUser({ id, name, age, sex }));
       props === 'editUser' && dispatch(editUser({ currentId, name, age, sex }));
+      setName('');
+      setAge(0);
       onSubmit();
    };
 

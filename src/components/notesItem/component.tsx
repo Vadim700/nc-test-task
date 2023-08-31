@@ -5,21 +5,21 @@ import { DropDown } from '../dropDown/component';
 type NotesItemProps = {
    id: number;
    title: string;
-   data: string;
-   image: string;
+   date: string;
+   image?: string;
 };
 
 export const NotesItem: React.FC<NotesItemProps> = ({
    id,
    title,
-   data,
+   date,
    image,
 }) => {
    return (
       <div className={styles.root}>
          <li className={styles.item}>
             <p className={styles.text}>
-               <span>{data}</span>
+               <span>{date}</span>
                {title}
             </p>
             {image && (
@@ -29,7 +29,7 @@ export const NotesItem: React.FC<NotesItemProps> = ({
             )}
 
             <span className={styles.dropDown}>
-               <DropDown />
+               <DropDown props={'noteDropDown'} idNote={id} />
             </span>
          </li>
       </div>

@@ -2,11 +2,18 @@ import React from 'react';
 import styles from './style.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate, useParams } from 'react-router-dom';
-import { removeUser, editUser } from '../../redux/slices/userSlice';
+import { removeUser } from '../../redux/slices/userSlice';
 import { User } from '../../types';
-import { UserModal } from '../UserModal/component';
+import { UserModal } from '../userModal/component';
+import { NoteModal } from '../noteModal/component';
+import { removeNote } from '../../redux/slices/noteSlice';
 
-export const DropDown: React.FC = () => {
+type DropDownProps = {
+   props: 'noteDropDown' | 'userDropDown';
+   idNote?: number;
+};
+
+export const DropDown: React.FC<DropDownProps> = ({ props, idNote }) => {
    const [open, setOpen] = React.useState<boolean>(false);
    const dropDownRef = React.useRef<HTMLDivElement>(null);
 
@@ -28,20 +35,20 @@ export const DropDown: React.FC = () => {
       setOpen((open) => !open);
    };
 
-   // const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
-   //    if (user) {
-   //       dispatch(editUser(user.id));
-   //    }
-   //    setOpen((open) => !open);
-   // };
-
    const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (user) {
-         dispatch(removeUser(user.id));
-         parseInt(id) === minId
-            ? navigate(`/${parseInt(id) + 1}/notes`)
-            : navigate(`/${parseInt(id) - 1}/notes`); // ???
+      if (props === 'userDropDown') {
+         if (user) {
+            dispatch(removeUser(user?.id));
+            parseInt(id) === minId
+               ? navigate(`/${parseInt(id) + 1}/notes`)
+               : navigate(`/${parseInt(id) - 1}/notes`);
+         }
       }
+
+      if (props === 'noteDropDown') {
+         dispatch(removeNote(idNote));
+      }
+
       setOpen((open) => !open);
    };
 
@@ -77,7 +84,10 @@ export const DropDown: React.FC = () => {
          </button>
          {open && (
             <span className={styles.action}>
-               <UserModal />
+               {props === 'userDropDown' && <UserModal />}
+               {props === 'noteDropDown' && (
+                  <NoteModal idNote={idNote} props={'editNote'} />
+               )}
                <button onClick={onClickDelete}>Удалить</button>
             </span>
          )}

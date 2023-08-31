@@ -32,7 +32,7 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
             </span>
          </div>
          <span className={styles.edit}>
-            <DropDown />
+            <DropDown props={'userDropDown'} />
          </span>
       </header>
    );

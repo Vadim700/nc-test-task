@@ -38,7 +38,7 @@ export const SideBar: FC<SideBarProps> = () => {
       dispatch(setSelectAll(allChecked));
    };
 
-   // const onSubmit = () => {};
+   const onSubmit = () => {};
 
    const newUserButtonStyle = {
       transform: openForm ? 'rotate(45deg)' : '',
@@ -86,7 +86,7 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </header>
-         {openForm && <FormUser props="newUser" />}
+         {openForm && <FormUser props="newUser" onSubmit={onSubmit} />}
          <div className={styles.action}>
             {actionsVisible ? (
                <>

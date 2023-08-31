@@ -8,3 +8,10 @@ export type User = {
    selected?: boolean;
    mark?: string;
 };
+
+export type Note = {
+   id: number;
+   title: string;
+   date: string;
+   image?: string;
+};

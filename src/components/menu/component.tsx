@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './style.module.scss';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { ReactComponent as PlusIcon } from '../../svg/Plus.svg';
+
+import { NoteModal } from '../noteModal/component';
 
 type MenuProps = {};
 
@@ -42,17 +43,7 @@ export const Menu: React.FC<MenuProps> = () => {
                </NavLink>
             </li>
          </ul>
-         <button className={styles.addItem}>
-            <Routes>
-               <Route index path="notes" element={<span>Новая заметка</span>} />
-               <Route path="consultation" element={<span>Записать</span>} />
-               <Route path="movies" element={<span>Рекомендовать</span>} />
-               <Route path="events" element={<span>Рекомендовать</span>} />
-            </Routes>
-            <span>
-               <PlusIcon />
-            </span>
-         </button>
+         <NoteModal props={'newNote'} />
       </nav>
    );
 };
