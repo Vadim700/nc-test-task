@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { removeUser } from '../../redux/slices/userSlice';
 import { User } from '../../types';
-import { UserModal } from '../userModal/component';
+import { UserModal } from '../UserModal/component';
 import { NoteModal } from '../noteModal/component';
 import { removeNote } from '../../redux/slices/noteSlice';
 
