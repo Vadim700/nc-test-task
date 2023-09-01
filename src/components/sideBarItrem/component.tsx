@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './style.module.scss';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { toggleUserSelected } from '../../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -33,22 +33,13 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    mark,
    actionsVisible,
 }) => {
-   const [checked, setChecked] = React.useState<boolean>(true);
+   const [checked, setChecked] = React.useState(false);
    const dispatch = useAppDispatch();
-
    const onClickItemList = (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (!actionsVisible) {
          e.preventDefault();
       }
    };
-
-   const onClickCheckbox = () => {
-      dispatch(toggleUserSelected(id));
-   };
-
-   React.useEffect(() => {
-      setChecked((checked) => !checked);
-   }, [selected]);
 
    const setActive = ({ isActive }: SetActiveProps): ActiveStyles => {
       return {
@@ -58,9 +49,9 @@ export const SideBarItem: FC<SideBarItemProps> = ({
       };
    };
 
-   const user = useAppSelector((user) => user.users.list).find(
-      (item) => item.id === Number(id),
-   );
+   React.useEffect(() => {
+      setChecked((i) => !i);
+   }, [dispatch, id, selected]);
 
    const userName = name.split(' ')[0] + ' ' + name.split(' ')[1];
    const singleWord = name.split(' ')[0];
@@ -77,10 +68,11 @@ export const SideBarItem: FC<SideBarItemProps> = ({
                <input
                   className={styles.checkbox}
                   type="checkbox"
-                  checked={checked}
-                  onChange={onClickCheckbox}
+                  checked={selected}
+                  onChange={() => dispatch(toggleUserSelected(id))}
                />
             )}
+
             <div
                className={styles.image}
                style={{ paddingLeft: !actionsVisible ? '42px' : '' }}

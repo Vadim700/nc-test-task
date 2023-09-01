@@ -142,8 +142,12 @@ export const userSlice = createSlice({
       },
 
       toggleUserSelected: (state, action: PayloadAction<number>) => {
-         state.list[action.payload - 1].selected =
-            !state.list[action.payload - 1].selected;
+         const editedUser = state.list.find(
+            (item) => item.id === action.payload,
+         );
+         if (editedUser) {
+            editedUser.selected = !editedUser.selected;
+         }
       },
 
       setSelectAll: (state, action: PayloadAction<boolean>) => {
@@ -151,8 +155,13 @@ export const userSlice = createSlice({
       },
 
       deleteSelectedUsers: (state, action: PayloadAction<number[]>) => {
-         state.list = [...state.list].filter(
+         state.list = state.list.filter(
             (item) => !action.payload.includes(item.id),
+         );
+         console.log(action.payload, '>>> action.payload');
+         console.log(
+            state.list.map((item) => item.id),
+            '>>> state.list',
          );
       },
 
