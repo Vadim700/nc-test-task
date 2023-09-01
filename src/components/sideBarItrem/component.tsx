@@ -50,7 +50,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    };
 
    React.useEffect(() => {
-      setChecked((i) => !i);
+      setChecked((checked) => !checked);
    }, [dispatch, id, selected]);
 
    const userName = name.split(' ')[0] + ' ' + name.split(' ')[1];
