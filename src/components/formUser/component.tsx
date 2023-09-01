@@ -15,7 +15,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
    currentId,
 }) => {
    const [name, setName] = React.useState<string>('');
-   const [age, setAge] = React.useState<number>(0);
+   const [age, setAge] = React.useState<string>('');
    const [sex, setSex] = React.useState<string>('');
 
    const currentUser = useAppSelector((user) => user.users.list).filter(
@@ -35,7 +35,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
       props === 'newUser' && dispatch(addNewUser({ id, name, age, sex }));
       props === 'editUser' && dispatch(editUser({ currentId, name, age, sex }));
       setName('');
-      setAge(0);
+      setAge('');
       onSubmit();
    };
 
