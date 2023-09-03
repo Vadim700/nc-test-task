@@ -51,7 +51,7 @@ body,
 
 .container {
    display: grid;
-   grid-template-columns: 398px 1fr;
+   grid-template-columns: minmax(270px, 398px) 1fr;
    column-gap: 30px;
 
    max-width: 1140px;

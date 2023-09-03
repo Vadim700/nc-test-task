@@ -10,6 +10,7 @@ import {
    setSelectAll,
 } from '../../redux/slices/userSlice';
 import { FormUser } from '../formUser/component';
+import { CSSTransition } from 'react-transition-group';
 
 type SideBarProps = {};
 
@@ -86,7 +87,25 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </header>
-         {openForm && <FormUser props="newUser" onSubmit={onSubmit} />}
+
+         <div className={styles.innerForm}>
+            <CSSTransition
+               in={openForm}
+               timeout={300}
+               classNames={{
+                  enter: styles.fadeEnter,
+                  enterActive: styles.fadeEnterActive,
+                  exit: styles.fadeExit,
+                  exitActive: styles.fadeExitActive,
+               }}
+               unmountOnExit
+            >
+               <div className={styles.wrapperForm}>
+                  <FormUser props="newUser" onSubmit={onSubmit} />
+               </div>
+            </CSSTransition>
+         </div>
+
          <div className={styles.action}>
             {actionsVisible ? (
                <>
