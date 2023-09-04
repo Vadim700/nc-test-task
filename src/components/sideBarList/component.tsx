@@ -13,12 +13,6 @@ export const SideBarList: FC<SideBarListProps> = ({
    value,
 }) => {
    const list = useAppSelector((item) => item.users.list);
-   console.log(
-      list.map((item) => {
-         return item.selected ? 1 : 0;
-      }),
-      '>>> list',
-   );
 
    return (
       <ul className={styles.root}>

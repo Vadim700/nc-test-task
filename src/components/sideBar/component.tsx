@@ -10,7 +10,7 @@ import {
    setSelectAll,
 } from '../../redux/slices/userSlice';
 import { FormUser } from '../formUser/component';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, Transition } from 'react-transition-group';
 
 type SideBarProps = {};
 
@@ -58,6 +58,7 @@ export const SideBar: FC<SideBarProps> = () => {
                         type="text"
                         onChange={(e) => setValue(e.target.value)}
                         value={value}
+                        className={styles.input}
                      />
                   </label>
                   <button
@@ -87,25 +88,23 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </header>
-
-         <div className={styles.innerForm}>
-            <CSSTransition
-               in={openForm}
-               timeout={300}
-               classNames={{
-                  enter: styles.fadeEnter,
-                  enterActive: styles.fadeEnterActive,
-                  exit: styles.fadeExit,
-                  exitActive: styles.fadeExitActive,
-               }}
-               unmountOnExit
-            >
-               <div className={styles.wrapperForm}>
-                  <FormUser props="newUser" onSubmit={onSubmit} />
-               </div>
-            </CSSTransition>
-         </div>
-
+         {/* <div className={styles.wrapperForm}> */}
+         <CSSTransition
+            in={openForm}
+            timeout={300}
+            classNames={{
+               enter: styles.fadeBodyEnter,
+               enterActive: styles.fadeBodyEnterActive,
+               exit: styles.fadeBodyExit,
+               exitActive: styles.fadeBodyExitActive,
+            }}
+            unmountOnExit
+         >
+            <div className={styles.innerForm}>
+               <FormUser props="newUser" onSubmit={onSubmit} />
+            </div>
+         </CSSTransition>
+         {/* </div> */}
          <div className={styles.action}>
             {actionsVisible ? (
                <>

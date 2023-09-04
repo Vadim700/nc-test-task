@@ -94,6 +94,8 @@
 	column-gap: 10px;
 	padding: 0px 10px 0px 15px;
 
+	overflow: hidden;
+
 	button {
 		margin: 0;
 		padding: 0;
@@ -145,6 +147,10 @@
 	input {
 		margin-right: 10px;
 	}
+}
+
+.input {
+	width: 100%;
 }
 
 .selected {
@@ -254,30 +260,24 @@
 	}
 }
 
-.fadeEnter {
+.fadeBodyEnter {
 	height: 0;
 }
 
-.fadeEnterActive {
+.fadeBodyEnterActive {
 	height: 130px;
-
 	transition: all 0.3s ease 0s;
 }
 
-.fadeExit {
+.fadeBodyExit {
 	height: 130px;
 }
 
-.fadeExitActive {
+.fadeBodyExitActive {
 	height: 0;
-
 	transition: all 0.3s ease 0s;
 }
 
 .wrapperForm {
-	position: relative;
 	overflow: hidden;
-}
-
-.innerForm {
 }
