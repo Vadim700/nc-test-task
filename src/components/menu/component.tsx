@@ -43,7 +43,9 @@ export const Menu: React.FC<MenuProps> = () => {
                </NavLink>
             </li>
          </ul>
-         <NoteModal props={'newNote'} />
+         <span>
+            <NoteModal props={'newNote'} />
+         </span>
       </nav>
    );
 };
