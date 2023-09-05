@@ -10,7 +10,7 @@ import {
    setSelectAll,
 } from '../../redux/slices/userSlice';
 import { FormUser } from '../formUser/component';
-import { CSSTransition, Transition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 
 type SideBarProps = {};
 
@@ -41,52 +41,59 @@ export const SideBar: FC<SideBarProps> = () => {
 
    const onSubmit = () => {};
 
-   const newUserButtonStyle = {
-      transform: openForm ? 'rotate(45deg)' : '',
-      backgroundColor: openForm ? 'var(--blue)' : '',
-      color: openForm ? 'var(--white)' : '',
+   const closeButtonStyles = {
+      transform: visibleSearch || openForm ? 'rotate(45deg)' : '',
+      backgroundColor: visibleSearch || openForm ? 'var(--blue)' : '',
+      color: visibleSearch || openForm ? 'var(--white)' : '',
+   };
+
+   const onclickPlus = () => {
+      visibleSearch ? setVisibleSearch(false) : setOpenForm((open) => !open);
    };
 
    return (
       <aside className={styles.root}>
          <header className={styles.header}>
-            {visibleSearch ? (
-               <div className={styles.searchBlock}>
-                  <label className={styles.label}>
+            <div className={styles.search}>
+               <div className={styles.inputGroup}>
+                  <button
+                     onClick={() => setVisibleSearch(true)}
+                     className={styles.startButton}
+                     style={{
+                        backgroundColor: visibleSearch ? 'white' : '',
+                        color: visibleSearch ? 'var(--gray)' : '',
+                     }}
+                  >
                      <SearchIcon />
+                  </button>
+                  <CSSTransition
+                     in={visibleSearch}
+                     timeout={300}
+                     classNames={{
+                        enter: styles.inputWidthEnter,
+                        enterActive: styles.inputWidthEnterActive,
+                        exit: styles.inputWidthExit,
+                        exitActive: styles.inputWidthExitActive,
+                     }}
+                     unmountOnExit
+                     mountOnEnter
+                  >
                      <input
                         type="text"
+                        className={styles.input}
                         onChange={(e) => setValue(e.target.value)}
                         value={value}
-                        className={styles.input}
                      />
-                  </label>
-                  <button
-                     onClick={() => setVisibleSearch((visible) => !visible)}
-                  >
-                     <PlusIcon />
-                  </button>
+                  </CSSTransition>
                </div>
-            ) : (
-               <>
-                  <button
-                     className={styles.search}
-                     onClick={() => setVisibleSearch((visible) => !visible)}
-                  >
-                     <SearchIcon title="Поиск" />
-                  </button>
-                  <button className={styles.filter}>
-                     <FilterIcon title="Фильтр" />
-                  </button>
-                  <button
-                     title={openForm ? 'Закрыть' : 'Добавать пользователя'}
-                     onClick={() => setOpenForm((open) => !open)}
-                     style={newUserButtonStyle}
-                  >
-                     <PlusIcon />
-                  </button>
-               </>
-            )}
+
+               <button>
+                  <FilterIcon title="Фильтр" />
+               </button>
+               <button onClick={onclickPlus} style={closeButtonStyles}>
+                  <PlusIcon />
+               </button>
+            </div>
          </header>
          <div className={styles.wrapperForm}>
             <CSSTransition
@@ -99,6 +106,7 @@ export const SideBar: FC<SideBarProps> = () => {
                   exitActive: styles.fadeBodyExitActive,
                }}
                unmountOnExit
+               mountOnEnter
             >
                <div className={styles.innerForm}>
                   <FormUser props="newUser" onSubmit={onSubmit} />

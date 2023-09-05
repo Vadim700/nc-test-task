@@ -154,7 +154,7 @@
 	font-family: "SF Pro Display", sans-serif;
 	border: none;
 	outline: none;
-	padding-left: 10px;
+	padding-left: 30px;
 	width: 100%;
 }
 
@@ -265,44 +265,89 @@
 	}
 }
 
-// ===== SearchBlock CSSTransiton start ======
-.fadeBodyEnter {
-}
-
-.fadeBodyEnterActive {
-}
-
-.fadeBodyExit {
-}
-
-.fadeBodyExitActive {
-}
-
-.wrapperForm {
-}
-// ===== SearchBlock CSSTransiton end ======
-
 // ===== UserForm CSSTransition star ======
 .fadeBodyEnter {
 	height: 0;
 }
-
 .fadeBodyEnterActive {
 	height: 130px;
 	transition: all 0.3s ease 0s;
 }
-
 .fadeBodyExit {
 	height: 130px;
 }
-
 .fadeBodyExitActive {
 	height: 0;
 	transition: all 0.3s ease 0s;
 }
-
 .wrapperForm {
 	overflow: hidden;
 }
-
 // ===== UserForm CSSTransition end ======
+
+.btnStart {
+	flex-shrink: 0;
+}
+
+.search {
+	position: relative;
+
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: 10px;
+
+	button {
+		font-size: 24px;
+		flex-shrink: 0;
+	}
+}
+
+.inputGroup {
+	position: relative;
+
+	display: grid;
+	grid-template-columns: 34px auto;
+	width: 84%;
+}
+
+.startButton {
+	position: relative;
+	z-index: 1;
+}
+
+.input {
+	position: absolute;
+	padding-right: 5px;
+
+	top: -2px;
+	left: -1px;
+
+	display: flex;
+	justify-items: start;
+
+	padding-left: 45px;
+	width: 98%;
+	height: 34px;
+
+	border-radius: 20px;
+	border: 1px solid var(--stroke);
+}
+
+// ===== SearchBlock CSSTransiton start ======
+.inputWidthEnter {
+	width: 0;
+}
+.inputWidthEnterActive {
+	width: 98%;
+	transition: width 0.3s ease 0s;
+}
+.inputWidthExit {
+	width: 98%;
+}
+.inputWidthExitActive {
+	width: 0%;
+	transition: width 0.3s ease 0s;
+}
+// ===== SearchBlock CSSTransiton end ======
