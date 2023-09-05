@@ -56,28 +56,29 @@
 	height: 38px;
 
 	& .label {
+		position: relative;
 		display: flex;
 		align-items: center;
 		flex: 1;
 
-		padding: 9px 9px;
+		padding: 9px;
 
-		border-radius: 90px;
+		border-radius: 20px;
 		border: 1px solid var(--cdcdcd, #cdcdcd);
 		color: var(--gray);
 		transition: all 0.2s ease 0s;
 
-		width: 0;
-
 		svg {
 			margin-left: -2px;
+			flex-shrink: 0;
+
+			position: absolute;
+			top: 50%;
+			left: 22px;
+			transform: translate(-50%, -50%);
 		}
 
 		input {
-			font-family: "SF Pro Display", sans-serif;
-			border: none;
-			outline: none;
-			padding-left: 10px;
 		}
 	}
 
@@ -150,6 +151,10 @@
 }
 
 .input {
+	font-family: "SF Pro Display", sans-serif;
+	border: none;
+	outline: none;
+	padding-left: 10px;
 	width: 100%;
 }
 
@@ -260,6 +265,24 @@
 	}
 }
 
+// ===== SearchBlock CSSTransiton start ======
+.fadeBodyEnter {
+}
+
+.fadeBodyEnterActive {
+}
+
+.fadeBodyExit {
+}
+
+.fadeBodyExitActive {
+}
+
+.wrapperForm {
+}
+// ===== SearchBlock CSSTransiton end ======
+
+// ===== UserForm CSSTransition star ======
 .fadeBodyEnter {
 	height: 0;
 }
@@ -281,3 +304,5 @@
 .wrapperForm {
 	overflow: hidden;
 }
+
+// ===== UserForm CSSTransition end ======

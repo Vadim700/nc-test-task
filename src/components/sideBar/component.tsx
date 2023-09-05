@@ -88,23 +88,23 @@ export const SideBar: FC<SideBarProps> = () => {
                </>
             )}
          </header>
-         {/* <div className={styles.wrapperForm}> */}
-         <CSSTransition
-            in={openForm}
-            timeout={300}
-            classNames={{
-               enter: styles.fadeBodyEnter,
-               enterActive: styles.fadeBodyEnterActive,
-               exit: styles.fadeBodyExit,
-               exitActive: styles.fadeBodyExitActive,
-            }}
-            unmountOnExit
-         >
-            <div className={styles.innerForm}>
-               <FormUser props="newUser" onSubmit={onSubmit} />
-            </div>
-         </CSSTransition>
-         {/* </div> */}
+         <div className={styles.wrapperForm}>
+            <CSSTransition
+               in={openForm}
+               timeout={300}
+               classNames={{
+                  enter: styles.fadeBodyEnter,
+                  enterActive: styles.fadeBodyEnterActive,
+                  exit: styles.fadeBodyExit,
+                  exitActive: styles.fadeBodyExitActive,
+               }}
+               unmountOnExit
+            >
+               <div className={styles.innerForm}>
+                  <FormUser props="newUser" onSubmit={onSubmit} />
+               </div>
+            </CSSTransition>
+         </div>
          <div className={styles.action}>
             {actionsVisible ? (
                <>
