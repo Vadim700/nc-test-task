@@ -1,5 +1,11 @@
 @import-normalize;
 
+// Брейк-поинты
+$pc: 1140px;
+$tablet: 991.98px;
+$mobile: 767.98px;
+$mobileSmall: 479.98px;
+
 :root {
    --white: #ffffff;
    --black: #161718;
@@ -47,9 +53,15 @@ body,
 
    background: var(--f-1-f-2-f-4, #f1f2f3);
    box-shadow: 0px 2px 10px 0px rgba(22, 23, 24, 0.08);
+
+   @media (max-width: $mobile) {
+      padding: 10px 0 20px;
+   }
 }
 
 .container {
+   position: relative;
+
    display: grid;
    grid-template-columns: minmax(270px, 398px) 1fr;
    column-gap: 30px;
@@ -57,9 +69,8 @@ body,
    max-width: 1140px;
    margin: 0 auto;
    padding: 0 15px;
-}
 
-.grid {
-   display: grid;
-   grid-template-rows: auto auto 1fr;
+   @media (max-width: 768.91px) {
+      display: block;
+   }
 }

@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .root {
 	li a {
 		text-decoration: none;
@@ -25,8 +27,13 @@
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 400;
-	line-height: 24px;
+	line-height: 1.71;
 	padding-right: 50px;
+
+	@media (max-width: $mobileSmall) {
+		font-size: 12px;
+		padding-right: 30px;
+	}
 
 	span {
 		font-size: 14px;
@@ -55,6 +62,6 @@
 .dropDown {
 	position: absolute;
 
-	top: 0;
+	top: -4px;
 	right: 0;
 }
