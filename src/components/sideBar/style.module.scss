@@ -1,15 +1,61 @@
+@import "../../index.scss";
+
 .root {
+	@media (max-width: $mobile) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		transition: all 0.3s ease 0s;
+	}
+}
+
+.inner {
 	display: flex;
 	flex-direction: column;
-
 	row-gap: 15px;
+
+	@media (max-width: $mobile) {
+		position: relative;
+		width: 400px;
+		height: 100%;
+		top: 0;
+		left: -410px;
+		transition: all 0.3s ease 0s;
+		z-index: 4;
+	}
+
+	@media (max-width: $mobileSmall) {
+		width: 300px;
+	}
+}
+
+.burger {
+	display: none;
+	width: 28px;
+	height: 28px;
+
+	@media (max-width: $mobile) {
+		display: inline-block;
+		position: sticky;
+		left: 15px;
+		top: 10px;
+		font-size: 28px;
+		z-index: 5;
+	}
+
+	@media (max-width: 350px) {
+		top: 5px;
+	}
 }
 
 .header {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
-	height: 60px;
+	min-height: 60px;
 	padding: 0 10px;
 
 	border-radius: 4px;
@@ -95,8 +141,6 @@
 	column-gap: 10px;
 	padding: 0px 10px 0px 15px;
 
-	overflow: hidden;
-
 	button {
 		margin: 0;
 		padding: 0;
@@ -116,6 +160,11 @@
 
 		&:last-child {
 			margin-left: 5px;
+		}
+
+		@media (max-width: $mobile) {
+			background-color: transparent;
+			color: var(--white);
 		}
 	}
 }
@@ -144,6 +193,10 @@
 	align-items: center;
 	color: var(--gray);
 	cursor: pointer;
+
+	@media (max-width: $mobile) {
+		color: var(--white);
+	}
 
 	input {
 		margin-right: 10px;
@@ -265,26 +318,6 @@
 	}
 }
 
-// ===== UserForm CSSTransition star ======
-.fadeBodyEnter {
-	height: 0;
-}
-.fadeBodyEnterActive {
-	height: 130px;
-	transition: all 0.3s ease 0s;
-}
-.fadeBodyExit {
-	height: 130px;
-}
-.fadeBodyExitActive {
-	height: 0;
-	transition: all 0.3s ease 0s;
-}
-.wrapperForm {
-	overflow: hidden;
-}
-// ===== UserForm CSSTransition end ======
-
 .btnStart {
 	flex-shrink: 0;
 }
@@ -351,3 +384,27 @@
 	transition: width 0.3s ease 0s;
 }
 // ===== SearchBlock CSSTransiton end ======
+
+// ===== UserForm CSSTransition star ======
+.fadeBodyEnter {
+	height: 0;
+}
+.fadeBodyEnterActive {
+	height: 130px;
+	transition: all 0.3s ease 0s;
+}
+.fadeBodyExit {
+	height: 130px;
+}
+.fadeBodyExitActive {
+	height: 0;
+	transition: all 0.3s ease 0s;
+}
+.wrapperForm {
+	overflow: hidden;
+
+	@media (max-width: $mobile) {
+		overflow: visible;
+	}
+}
+// ===== UserForm CSSTransition end ======

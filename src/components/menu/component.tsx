@@ -43,7 +43,7 @@ export const Menu: React.FC<MenuProps> = () => {
                </NavLink>
             </li>
          </ul>
-         <span>
+         <span className={styles.modal} title="Новая заметка">
             <NoteModal props={'newNote'} />
          </span>
       </nav>

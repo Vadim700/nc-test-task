@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .root {
 	position: relative;
 
@@ -15,6 +17,11 @@
 
 	font-size: 16px;
 	line-height: 1.25;
+
+	@media (max-width: $mobileSmall) {
+		font-size: 14px;
+		align-self: center;
+	}
 }
 
 .image {
@@ -24,6 +31,10 @@
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
+
+	@media (max-width: $mobileSmall) {
+		width: 60px;
+	}
 
 	img {
 		width: 100%;
