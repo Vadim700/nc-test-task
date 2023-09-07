@@ -70,6 +70,8 @@
 
 	@media (max-width: $mobileSmall) {
 		margin-bottom: 5px;
+		max-width: 250px;
+		margin: 0px auto 10px;
 	}
 }
 
@@ -82,7 +84,7 @@
 
 	@media (max-width: $mobileSmall) {
 		column-gap: 5px;
-		grid-template-columns: 70px 95px 50px;
+		grid-template-columns: 70px 110px 50px;
 		margin: 0px auto;
 	}
 }

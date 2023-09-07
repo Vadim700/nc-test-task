@@ -22,9 +22,8 @@
 		width: 400px;
 		height: 100%;
 		top: 0;
-		left: -410px;
-		transition: all 0.3s ease 0s;
 		z-index: 4;
+		left: 15px;
 	}
 
 	@media (max-width: $mobileSmall) {
@@ -345,6 +344,9 @@
 	width: 84%;
 }
 
+.innerForm {
+}
+
 .startButton {
 	position: relative;
 	z-index: 1;
@@ -402,9 +404,53 @@
 }
 .wrapperForm {
 	overflow: hidden;
+	transition: all 0.5s ease 0s;
 
 	@media (max-width: $mobile) {
 		overflow: visible;
 	}
 }
 // ===== UserForm CSSTransition end ======
+
+// ===== SideBar CSSTransition start ======
+.asideBlockEnter {
+	left: -410px;
+}
+.asideBlockEnterActive {
+	left: 15px;
+	transition: left 0.3s ease;
+}
+.asideBlockExit {
+	left: 15px;
+}
+.asideBlockExitActive {
+	left: -410px;
+	transition: left 0.3s ease;
+}
+// ===== SideBar CSSTransition end ======
+
+// ===== SideBar CSSTransition start ======
+.filterEnter {
+	height: 0;
+}
+.filterEnterActive {
+	height: auto;
+	transition: height 0.3s ease;
+}
+.filterExit {
+	height: auto;
+}
+.filterExitActive {
+	height: 0;
+	transition: height 0.3s ease;
+}
+
+.filter {
+	overflow: hidden;
+	transition: all 0.5s ease 0s;
+
+	@media (max-width: $mobile) {
+		overflow: visible;
+	}
+}
+// ===== SideBar CSSTransition end ======

@@ -12,6 +12,7 @@ import {
 import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
+import { Filter } from '../filter/component';
 
 type SideBarProps = {};
 
@@ -22,6 +23,7 @@ export const SideBar: FC<SideBarProps> = () => {
    const [value, setValue] = React.useState<string>('');
    const [openForm, setOpenForm] = React.useState<boolean>(false);
    const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
+   const [filterOpen, setFilterOpen] = React.useState<boolean>(false);
 
    const dispatch = useAppDispatch();
    const data = useAppSelector((user) => user.users.list);
@@ -53,7 +55,10 @@ export const SideBar: FC<SideBarProps> = () => {
       visibleSearch ? setVisibleSearch(false) : setOpenForm((open) => !open);
    };
 
-   const widthWindow = document.documentElement.clientWidth;
+   const onClickMenu = () => {
+      setMenuOpen((open) => !open);
+      document.body.style.overflow = menuOpen ? 'visible' : 'hidden';
+   };
 
    return (
       <aside
@@ -66,7 +71,7 @@ export const SideBar: FC<SideBarProps> = () => {
       >
          <span
             className={styles.burger}
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={onClickMenu}
             style={{
                left: menuOpen ? '90%' : '15px',
                color: menuOpen ? 'white' : '',
@@ -75,117 +80,271 @@ export const SideBar: FC<SideBarProps> = () => {
          >
             <GoSidebarCollapse />
          </span>
-         <div
-            className={styles.inner}
-            style={{
-               left: menuOpen ? '15px' : '',
-            }}
-         >
-            <header className={styles.header}>
-               <div className={styles.search}>
-                  <div className={styles.inputGroup}>
-                     <button
-                        onClick={() => setVisibleSearch(true)}
-                        className={styles.startButton}
-                        style={{
-                           backgroundColor: visibleSearch ? 'white' : '',
-                           color: visibleSearch ? 'var(--gray)' : '',
-                        }}
-                     >
-                        <SearchIcon />
-                     </button>
+         {window.innerWidth < 768 ? (
+            <CSSTransition
+               in={menuOpen}
+               timeout={3000}
+               classNames={{
+                  enter: styles.asideBlockEnter,
+                  enterActive: styles.asideBlockEnterActive,
+                  exit: styles.asideBlockExit,
+                  exitActive: styles.asideBlockExitActive,
+               }}
+               unmountOnExit
+               mountOnEnter
+            >
+               <div className={styles.inner}>
+                  <header className={styles.header}>
+                     <div className={styles.search}>
+                        <div className={styles.inputGroup}>
+                           <button
+                              onClick={() => setVisibleSearch(true)}
+                              className={styles.startButton}
+                              style={{
+                                 backgroundColor: visibleSearch ? 'white' : '',
+                                 color: visibleSearch ? 'var(--gray)' : '',
+                              }}
+                           >
+                              <SearchIcon />
+                           </button>
+                           <CSSTransition
+                              in={visibleSearch}
+                              timeout={300}
+                              classNames={{
+                                 enter: styles.inputWidthEnter,
+                                 enterActive: styles.inputWidthEnterActive,
+                                 exit: styles.inputWidthExit,
+                                 exitActive: styles.inputWidthExitActive,
+                              }}
+                              unmountOnExit
+                              mountOnEnter
+                           >
+                              <input
+                                 type="text"
+                                 className={styles.input}
+                                 onChange={(e) => setValue(e.target.value)}
+                                 value={value}
+                              />
+                           </CSSTransition>
+                        </div>
+                        <button>
+                           <FilterIcon title="Фильтр" />
+                        </button>
+                        <button onClick={onclickPlus} style={closeButtonStyles}>
+                           <PlusIcon />
+                        </button>
+                     </div>
+                  </header>
+                  <div className={styles.wrapperForm}>
                      <CSSTransition
-                        in={visibleSearch}
+                        in={openForm}
                         timeout={300}
                         classNames={{
-                           enter: styles.inputWidthEnter,
-                           enterActive: styles.inputWidthEnterActive,
-                           exit: styles.inputWidthExit,
-                           exitActive: styles.inputWidthExitActive,
+                           enter: styles.fadeBodyEnter,
+                           enterActive: styles.fadeBodyEnterActive,
+                           exit: styles.fadeBodyExit,
+                           exitActive: styles.fadeBodyExitActive,
                         }}
                         unmountOnExit
                         mountOnEnter
                      >
-                        <input
-                           type="text"
-                           className={styles.input}
-                           onChange={(e) => setValue(e.target.value)}
-                           value={value}
-                        />
+                        <div className={styles.innerForm}>
+                           <FormUser props="newUser" onSubmit={onSubmit} />
+                        </div>
                      </CSSTransition>
                   </div>
-                  <button>
-                     <FilterIcon title="Фильтр" />
-                  </button>
-                  <button onClick={onclickPlus} style={closeButtonStyles}>
-                     <PlusIcon />
-                  </button>
-               </div>
-            </header>
-            <div className={styles.wrapperForm}>
-               <CSSTransition
-                  in={openForm}
-                  timeout={300}
-                  classNames={{
-                     enter: styles.fadeBodyEnter,
-                     enterActive: styles.fadeBodyEnterActive,
-                     exit: styles.fadeBodyExit,
-                     exitActive: styles.fadeBodyExitActive,
-                  }}
-                  unmountOnExit
-                  mountOnEnter
-               >
-                  <div className={styles.innerForm}>
-                     <FormUser props="newUser" onSubmit={onSubmit} />
+                  <div className={styles.action}>
+                     {actionsVisible ? (
+                        <>
+                           <span className={styles.count}>{dataLength}</span>
+                           <button
+                              className={styles.button}
+                              onClick={onClickActionVisible}
+                           >
+                              Выбрать
+                           </button>
+                        </>
+                     ) : (
+                        <>
+                           <label className={styles.label}>
+                              <input
+                                 className={styles.checkbox}
+                                 type="checkbox"
+                                 onClick={onClickMainCheckbox}
+                                 style={{ marginLeft: '-5px' }}
+                              />
+                              Все
+                           </label>
+                           <span className={styles.selected}>
+                              {selectedLength}
+                           </span>
+                           {selectedLength ? (
+                              <button
+                                 className={styles.button}
+                                 onClick={() =>
+                                    dispatch(deleteSelectedUsers(dataSelected))
+                                 }
+                              >
+                                 Удалить
+                              </button>
+                           ) : (
+                              ''
+                           )}
+                           <button
+                              className={styles.button}
+                              onClick={onClickActionVisible}
+                           >
+                              Отменить
+                           </button>
+                        </>
+                     )}
                   </div>
-               </CSSTransition>
-            </div>
-            <div className={styles.action}>
-               {actionsVisible ? (
-                  <>
-                     <span className={styles.count}>{dataLength}</span>
+                  <SideBarList actionsVisible={actionsVisible} value={value} />
+               </div>
+            </CSSTransition>
+         ) : (
+            <div
+               className={styles.inner}
+               style={{
+                  left: menuOpen ? '15px' : '',
+               }}
+            >
+               <header className={styles.header}>
+                  <div className={styles.search}>
+                     <div className={styles.inputGroup}>
+                        <button
+                           onClick={() => setVisibleSearch(true)}
+                           className={styles.startButton}
+                           style={{
+                              backgroundColor: visibleSearch ? 'white' : '',
+                              color: visibleSearch ? 'var(--gray)' : '',
+                           }}
+                        >
+                           <SearchIcon />
+                        </button>
+                        <CSSTransition
+                           in={visibleSearch}
+                           timeout={300}
+                           classNames={{
+                              enter: styles.inputWidthEnter,
+                              enterActive: styles.inputWidthEnterActive,
+                              exit: styles.inputWidthExit,
+                              exitActive: styles.inputWidthExitActive,
+                           }}
+                           unmountOnExit
+                           mountOnEnter
+                        >
+                           <input
+                              type="text"
+                              className={styles.input}
+                              onChange={(e) => setValue(e.target.value)}
+                              value={value}
+                           />
+                        </CSSTransition>
+                     </div>
                      <button
-                        className={styles.button}
-                        onClick={onClickActionVisible}
+                        onClick={() => setFilterOpen((open) => !open)}
+                        style={{
+                           backgroundColor: filterOpen ? 'var(--blue)' : '',
+                           color: filterOpen ? 'var(--white)' : '',
+                        }}
                      >
-                        Выбрать
+                        <FilterIcon title="Фильтр" />
                      </button>
-                  </>
-               ) : (
-                  <>
-                     <label className={styles.label}>
-                        <input
-                           className={styles.checkbox}
-                           type="checkbox"
-                           onClick={onClickMainCheckbox}
-                           style={{ marginLeft: '-5px' }}
-                        />
-                        Все
-                     </label>
-                     <span className={styles.selected}>{selectedLength}</span>
-                     {selectedLength ? (
+                     <button onClick={onclickPlus} style={closeButtonStyles}>
+                        <PlusIcon />
+                     </button>
+                  </div>
+               </header>
+               <div
+                  className={styles.filter}
+                  style={{ marginTop: filterOpen ? '' : '-15px' }}
+               >
+                  <CSSTransition
+                     in={filterOpen}
+                     timeout={300}
+                     classNames={{
+                        enter: styles.filterEnter,
+                        enterActive: styles.filterEnterActive,
+                        exit: styles.filterExit,
+                        exitActive: styles.filterExitActive,
+                     }}
+                     unmountOnExit
+                     mountOnEnter
+                  >
+                     <Filter />
+                  </CSSTransition>
+               </div>
+               <div
+                  className={styles.wrapperForm}
+                  style={{ marginTop: openForm ? '' : '-15px' }}
+               >
+                  <CSSTransition
+                     in={openForm}
+                     timeout={300}
+                     classNames={{
+                        enter: styles.fadeBodyEnter,
+                        enterActive: styles.fadeBodyEnterActive,
+                        exit: styles.fadeBodyExit,
+                        exitActive: styles.fadeBodyExitActive,
+                     }}
+                     unmountOnExit
+                     mountOnEnter
+                  >
+                     <div className={styles.innerForm}>
+                        <FormUser props="newUser" onSubmit={onSubmit} />
+                     </div>
+                  </CSSTransition>
+               </div>
+               <div className={styles.action}>
+                  {actionsVisible ? (
+                     <>
+                        <span className={styles.count}>{dataLength}</span>
                         <button
                            className={styles.button}
-                           onClick={() =>
-                              dispatch(deleteSelectedUsers(dataSelected))
-                           }
+                           onClick={onClickActionVisible}
                         >
-                           Удалить
+                           Выбрать
                         </button>
-                     ) : (
-                        ''
-                     )}
-                     <button
-                        className={styles.button}
-                        onClick={onClickActionVisible}
-                     >
-                        Отменить
-                     </button>
-                  </>
-               )}
+                     </>
+                  ) : (
+                     <>
+                        <label className={styles.label}>
+                           <input
+                              className={styles.checkbox}
+                              type="checkbox"
+                              onClick={onClickMainCheckbox}
+                              style={{ marginLeft: '-5px' }}
+                           />
+                           Все
+                        </label>
+                        <span className={styles.selected}>
+                           {selectedLength}
+                        </span>
+                        {selectedLength ? (
+                           <button
+                              className={styles.button}
+                              onClick={() =>
+                                 dispatch(deleteSelectedUsers(dataSelected))
+                              }
+                           >
+                              Удалить
+                           </button>
+                        ) : (
+                           ''
+                        )}
+                        <button
+                           className={styles.button}
+                           onClick={onClickActionVisible}
+                        >
+                           Отменить
+                        </button>
+                     </>
+                  )}
+               </div>
+               <SideBarList actionsVisible={actionsVisible} value={value} />
             </div>
-            <SideBarList actionsVisible={actionsVisible} value={value} />
-         </div>
+         )}
       </aside>
    );
 };
