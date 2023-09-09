@@ -13,6 +13,7 @@ import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
 import { Filter } from '../filter/component';
+import classNames from 'classnames';
 
 type SideBarProps = {};
 
@@ -65,7 +66,7 @@ export const SideBar: FC<SideBarProps> = () => {
          className={styles.root}
          style={{
             backdropFilter: menuOpen ? 'blur(5px)' : '',
-            backgroundColor: menuOpen ? 'rgba(0, 0, 0, .5)' : '',
+            backgroundColor: menuOpen ? 'rgba(0, 0, 0, .5)' : '', // почистить с помощью 'classnames'
             zIndex: menuOpen ? '3' : '0',
          }}
       >
@@ -247,6 +248,7 @@ export const SideBar: FC<SideBarProps> = () => {
                         style={{
                            backgroundColor: filterOpen ? 'var(--blue)' : '',
                            color: filterOpen ? 'var(--white)' : '',
+                           transform: filterOpen ? 'rotate(-180deg)' : '',
                         }}
                      >
                         <FilterIcon title="Фильтр" />
@@ -257,8 +259,11 @@ export const SideBar: FC<SideBarProps> = () => {
                   </div>
                </header>
                <div
-                  className={styles.filter}
-                  style={{ marginTop: filterOpen ? '' : '-15px' }}
+                  className={styles.filterWrapper}
+                  style={{
+                     marginTop: filterOpen ? '' : '-15px',
+                     paddingTop: filterOpen ? '10px' : '',
+                  }}
                >
                   <CSSTransition
                      in={filterOpen}
@@ -277,7 +282,9 @@ export const SideBar: FC<SideBarProps> = () => {
                </div>
                <div
                   className={styles.wrapperForm}
-                  style={{ marginTop: openForm ? '' : '-15px' }}
+                  style={{
+                     marginTop: openForm ? '' : '-15px',
+                  }}
                >
                   <CSSTransition
                      in={openForm}

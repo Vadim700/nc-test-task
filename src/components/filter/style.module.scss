@@ -1,3 +1,79 @@
+@import "../../common.scss";
+
 .root {
-	border: 1px solid #000;
+	padding: 0 9px;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	column-gap: 15px;
+	margin-bottom: 10px;
+}
+
+.label {
+	display: flex;
+	align-items: center;
+	color: var(--gray);
+	cursor: pointer;
+
+	@media (max-width: $mobile) {
+		color: var(--white);
+	}
+
+	input {
+		margin-right: 10px;
+	}
+
+	&:nth-child(2) {
+		margin-right: auto;
+	}
+}
+
+.checkbox {
+	border-radius: 4px;
+	border: 1px solid var(--stroke);
+	background: var(--white);
+
+	width: 18px;
+	height: 18px;
+	position: relative;
+
+	cursor: pointer;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-o-appearance: none;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&:checked {
+		border: none;
+		&::before {
+			content: url("../../../public/images/icons/checkbox.png");
+		}
+	}
+}
+
+.range {
+	display: flex;
+	align-items: center;
+	column-gap: 20px;
+	padding: 5px 9px 0;
+	padding-right: 0;
+	color: var(--gray);
+
+	span:last-child {
+		white-space: nowrap;
+		padding-bottom: 7px;
+	}
+}
+
+.rangeTitle {
+	margin-left: -9px;
+	padding-bottom: 7px;
 }

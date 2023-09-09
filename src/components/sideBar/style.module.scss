@@ -1,4 +1,4 @@
-@import "../../index.scss";
+@import "../../common.scss";
 
 .root {
 	@media (max-width: $mobile) {
@@ -202,14 +202,6 @@
 	}
 }
 
-.input {
-	font-family: "SF Pro Display", sans-serif;
-	border: none;
-	outline: none;
-	padding-left: 30px;
-	width: 100%;
-}
-
 .selected {
 	margin-right: auto;
 
@@ -338,13 +330,11 @@
 
 .inputGroup {
 	position: relative;
+	z-index: 2;
 
 	display: grid;
 	grid-template-columns: 34px auto;
 	width: 84%;
-}
-
-.innerForm {
 }
 
 .startButton {
@@ -353,6 +343,12 @@
 }
 
 .input {
+	font-family: "SF Pro Display", sans-serif;
+	border: none;
+	outline: none;
+	padding-left: 30px;
+	width: 100%;
+
 	position: absolute;
 	padding-right: 5px;
 
@@ -429,23 +425,23 @@
 }
 // ===== SideBar CSSTransition end ======
 
-// ===== SideBar CSSTransition start ======
+// ===== Filter CSSTransition start ======
 .filterEnter {
 	height: 0;
 }
 .filterEnterActive {
-	height: auto;
+	height: 65px;
 	transition: height 0.3s ease;
 }
 .filterExit {
-	height: auto;
+	height: 65px;
 }
 .filterExitActive {
 	height: 0;
 	transition: height 0.3s ease;
 }
 
-.filter {
+.filterWrapper {
 	overflow: hidden;
 	transition: all 0.5s ease 0s;
 
@@ -453,4 +449,4 @@
 		overflow: visible;
 	}
 }
-// ===== SideBar CSSTransition end ======
+// ===== Filter CSSTransition end ======

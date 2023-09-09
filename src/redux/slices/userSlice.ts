@@ -125,12 +125,12 @@ export const userSlice = createSlice({
    name: 'users',
    initialState,
    reducers: {
-      removeUser: (state, action: PayloadAction<number>) => {
-         state.list = state.list.filter((item) => item.id !== action.payload);
+      removeUser: (state, { payload }: PayloadAction<number>) => {
+         state.list = state.list.filter((item) => item.id !== payload);
       },
 
-      editUser: (state, action: PayloadAction<any>) => {
-         const { currentId, name, age, sex } = action.payload;
+      editUser: (state, { payload }: PayloadAction<any>) => {
+         const { currentId, name, age, sex } = payload;
          const editedUser = state.list.find(
             (item) => item.id === Number(currentId),
          );
@@ -141,32 +141,35 @@ export const userSlice = createSlice({
          }
       },
 
-      toggleUserSelected: (state, action: PayloadAction<number>) => {
-         const editedUser = state.list.find(
-            (item) => item.id === action.payload,
-         );
+      toggleUserSelected: (state, { payload }: PayloadAction<number>) => {
+         const editedUser = state.list.find((item) => item.id === payload);
          if (editedUser) {
             editedUser.selected = !editedUser.selected;
          }
       },
 
-      setSelectAll: (state, action: PayloadAction<boolean>) => {
-         state.list.map((item) => (item.selected = !action.payload));
+      setSelectAll: (state, { payload }: PayloadAction<boolean>) => {
+         state.list.map((item) => (item.selected = !payload));
       },
 
-      deleteSelectedUsers: (state, action: PayloadAction<number[]>) => {
-         state.list = state.list.filter(
-            (item) => !action.payload.includes(item.id),
-         );
-         console.log(action.payload, '>>> action.payload');
+      deleteSelectedUsers: (state, { payload }: PayloadAction<number[]>) => {
+         state.list = state.list.filter((item) => !payload.includes(item.id));
+         console.log(payload, '>>> payload');
          console.log(
             state.list.map((item) => item.id),
             '>>> state.list',
          );
       },
 
-      addNewUser: (state, action: PayloadAction<any>) => {
-         state.list.push(action.payload);
+      addNewUser: (state, { payload }: PayloadAction<any>) => {
+         state.list.push(payload);
+      },
+
+      genderFilter: (
+         state,
+         { payload }: PayloadAction<'муж' | 'жен' | 'все'>,
+      ) => {
+         state.list = state.list.filter((item) => item.sex === payload);
       },
    },
 });
@@ -178,6 +181,7 @@ export const {
    setSelectAll,
    deleteSelectedUsers,
    addNewUser,
+   genderFilter,
 } = userSlice.actions;
 
 export default userSlice.reducer;
