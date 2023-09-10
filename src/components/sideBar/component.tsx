@@ -13,7 +13,7 @@ import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
 import { Filter } from '../filter/component';
-import classNames from 'classnames';
+import { count } from 'console';
 
 type SideBarProps = {};
 
@@ -25,6 +25,7 @@ export const SideBar: FC<SideBarProps> = () => {
    const [openForm, setOpenForm] = React.useState<boolean>(false);
    const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
    const [filterOpen, setFilterOpen] = React.useState<boolean>(false);
+   const [currentCount, setCurrentCount] = React.useState(0);
 
    const dispatch = useAppDispatch();
    const data = useAppSelector((user) => user.users.list);
@@ -47,7 +48,7 @@ export const SideBar: FC<SideBarProps> = () => {
    const onSubmit = (): void => {};
 
    const closeButtonStyles = {
-      transform: visibleSearch || openForm ? 'rotate(45deg)' : '',
+      transform: visibleSearch || openForm ? 'rotate(135deg)' : '',
       backgroundColor: visibleSearch || openForm ? 'var(--blue)' : '',
       color: visibleSearch || openForm ? 'var(--white)' : '',
    };
@@ -59,6 +60,10 @@ export const SideBar: FC<SideBarProps> = () => {
    const onClickMenu = () => {
       setMenuOpen((open) => !open);
       document.body.style.overflow = menuOpen ? 'visible' : 'hidden';
+   };
+
+   const currentLengtn = (e: number) => {
+      setCurrentCount(e);
    };
 
    return (
@@ -157,7 +162,7 @@ export const SideBar: FC<SideBarProps> = () => {
                   <div className={styles.action}>
                      {actionsVisible ? (
                         <>
-                           <span className={styles.count}>{dataLength}</span>
+                           <span className={styles.count}>{currentCount}</span>
                            <button
                               className={styles.button}
                               onClick={onClickActionVisible}
@@ -200,7 +205,11 @@ export const SideBar: FC<SideBarProps> = () => {
                         </>
                      )}
                   </div>
-                  <SideBarList actionsVisible={actionsVisible} value={value} />
+                  <SideBarList
+                     actionsVisible={actionsVisible}
+                     value={value}
+                     currentLengtn={currentLengtn}
+                  />
                </div>
             </CSSTransition>
          ) : (
@@ -306,7 +315,7 @@ export const SideBar: FC<SideBarProps> = () => {
                <div className={styles.action}>
                   {actionsVisible ? (
                      <>
-                        <span className={styles.count}>{dataLength}</span>
+                        <span className={styles.count}>{currentCount}</span>
                         <button
                            className={styles.button}
                            onClick={onClickActionVisible}
@@ -349,7 +358,11 @@ export const SideBar: FC<SideBarProps> = () => {
                      </>
                   )}
                </div>
-               <SideBarList actionsVisible={actionsVisible} value={value} />
+               <SideBarList
+                  actionsVisible={actionsVisible}
+                  value={value}
+                  currentLengtn={currentLengtn}
+               />
             </div>
          )}
       </aside>

@@ -31,6 +31,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    fullName,
    selected,
    mark,
+
    actionsVisible,
 }) => {
    const [checked, setChecked] = React.useState(false);
@@ -84,6 +85,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
             </div>
             <div className={styles.name}>
                {name.split(' ')[1] ? userName : singleWord}
+               {}
             </div>
             {mark && (
                <span className={styles.mark}>

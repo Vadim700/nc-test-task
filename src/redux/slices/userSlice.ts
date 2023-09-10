@@ -115,10 +115,14 @@ const users: User[] = [
 
 type UserState = {
    list: User[];
+   filter: string;
+   filterAge: number[];
 };
 
 const initialState: UserState = {
    list: users,
+   filter: 'все',
+   filterAge: [24, 48],
 };
 
 export const userSlice = createSlice({
@@ -154,23 +158,24 @@ export const userSlice = createSlice({
 
       deleteSelectedUsers: (state, { payload }: PayloadAction<number[]>) => {
          state.list = state.list.filter((item) => !payload.includes(item.id));
-         console.log(payload, '>>> payload');
-         console.log(
-            state.list.map((item) => item.id),
-            '>>> state.list',
-         );
       },
 
       addNewUser: (state, { payload }: PayloadAction<any>) => {
          state.list.push(payload);
       },
 
-      genderFilter: (
+      userFilter: (
          state,
          { payload }: PayloadAction<'муж' | 'жен' | 'все'>,
       ) => {
-         state.list = state.list.filter((item) => item.sex === payload);
+         state.filter = payload;
       },
+
+      filterByAge: (state, { payload }: PayloadAction<number[]>) => {
+         state.filterAge = payload;
+      },
+
+      userListLangth: (state) => {},
    },
 });
 
@@ -181,7 +186,8 @@ export const {
    setSelectAll,
    deleteSelectedUsers,
    addNewUser,
-   genderFilter,
+   userFilter,
+   filterByAge,
 } = userSlice.actions;
 
 export default userSlice.reducer;
