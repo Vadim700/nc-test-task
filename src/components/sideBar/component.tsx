@@ -89,7 +89,7 @@ export const SideBar: FC<SideBarProps> = () => {
          {window.innerWidth < 768 ? (
             <CSSTransition
                in={menuOpen}
-               timeout={3000}
+               timeout={300}
                classNames={{
                   enter: styles.asideBlockEnter,
                   enterActive: styles.asideBlockEnterActive,
@@ -133,7 +133,14 @@ export const SideBar: FC<SideBarProps> = () => {
                               />
                            </CSSTransition>
                         </div>
-                        <button>
+                        <button
+                           onClick={() => setFilterOpen((open) => !open)}
+                           style={{
+                              backgroundColor: filterOpen ? 'var(--blue)' : '',
+                              color: filterOpen ? 'var(--white)' : '',
+                              transform: filterOpen ? 'rotate(-180deg)' : '',
+                           }}
+                        >
                            <FilterIcon title="Фильтр" />
                         </button>
                         <button onClick={onclickPlus} style={closeButtonStyles}>
@@ -141,6 +148,30 @@ export const SideBar: FC<SideBarProps> = () => {
                         </button>
                      </div>
                   </header>
+                  <div
+                     className={styles.filterWrapper}
+                     style={{
+                        marginTop: filterOpen ? '' : '-15px',
+                        marginBottom: openForm ? '' : '-15px',
+                        paddingTop:
+                           filterOpen && window.innerWidth < 768 ? '10px' : '',
+                     }}
+                  >
+                     <CSSTransition
+                        in={filterOpen}
+                        timeout={300}
+                        classNames={{
+                           enter: styles.filterEnter,
+                           enterActive: styles.filterEnterActive,
+                           exit: styles.filterExit,
+                           exitActive: styles.filterExitActive,
+                        }}
+                        unmountOnExit
+                        mountOnEnter
+                     >
+                        <Filter />
+                     </CSSTransition>
+                  </div>
                   <div className={styles.wrapperForm}>
                      <CSSTransition
                         in={openForm}
@@ -181,6 +212,7 @@ export const SideBar: FC<SideBarProps> = () => {
                               />
                               Все
                            </label>
+                           .
                            <span className={styles.selected}>
                               {selectedLength}
                            </span>

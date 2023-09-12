@@ -2,6 +2,14 @@
 
 .root {
 	padding: 0 9px;
+
+	@media (max-width: $mobile) {
+		background-color: #fff;
+		border-radius: 4px;
+		padding: 10px;
+		padding: 10px 10px 0;
+		overflow: hidden;
+	}
 }
 
 .row {
@@ -16,10 +24,6 @@
 	align-items: center;
 	color: var(--gray);
 	cursor: pointer;
-
-	@media (max-width: $mobile) {
-		color: var(--white);
-	}
 
 	input {
 		margin-right: 10px;
