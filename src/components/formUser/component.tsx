@@ -46,59 +46,70 @@ export const FormUser: React.FC<FoumUserProps> = ({
    return (
       <div className={styles.form}>
          <form action="#" className={styles.body} onSubmit={submitForm}>
-            {props === 'newUser' && (
-               <input
-                  type="text"
-                  className={styles.name}
-                  placeholder="ФИО"
-                  value={name}
-                  onChange={(e: any) => setName(e.target.value)}
-                  style={styleForPopup}
-               />
-            )}
-            {props === 'editUser' && (
-               <input
-                  type="text"
-                  className={styles.name}
-                  placeholder="ФИО"
-                  onChange={(e: any) => setName(e.target.value)}
-                  style={styleForPopup}
-                  defaultValue={userName}
-               />
-            )}
-
-            <p className={styles.row}>
+            <div className={styles.bio}>
+               {/* <input type="file" name="" id="" className={styles.file} /> */}
+               <div className={styles.file}>
+                  <label htmlFor="fileInput" className={styles.fileLabel}>
+                     <img src="../../../images/png/no-image.png" alt="" />
+                  </label>
+                  <input
+                     type="file"
+                     id="fileInput"
+                     style={{ display: 'none' }}
+                  />
+               </div>
                {props === 'newUser' && (
                   <input
-                     type="number"
-                     className={styles.age}
-                     placeholder="Возраст"
-                     onChange={(e: any) => setAge(e.target.value)}
-                     value={age}
+                     type="text"
+                     className={styles.name}
+                     placeholder="ФИО"
+                     value={name}
+                     onChange={(e: any) => setName(e.target.value)}
                      style={styleForPopup}
                   />
                )}
                {props === 'editUser' && (
                   <input
-                     type="number"
-                     className={styles.age}
-                     placeholder="Возраст"
-                     onChange={(e: any) => setAge(e.target.value)}
-                     defaultValue={userAge}
+                     type="text"
+                     className={styles.name}
+                     placeholder="ФИО"
+                     onChange={(e: any) => setName(e.target.value)}
                      style={styleForPopup}
+                     defaultValue={userName}
                   />
                )}
-
-               <select
-                  className={styles.sex}
-                  defaultValue="муж"
-                  onChange={(e: any) => setSex(e.target.value)}
-                  style={styleForPopup}
-               >
-                  <option value={sex}>Муж</option>
-                  <option value={sex}>Жен</option>
-               </select>
-            </p>
+               <p className={styles.row}>
+                  {props === 'newUser' && (
+                     <input
+                        type="number"
+                        className={styles.age}
+                        placeholder="Возраст"
+                        onChange={(e: any) => setAge(e.target.value)}
+                        value={age}
+                        style={styleForPopup}
+                     />
+                  )}
+                  {props === 'editUser' && (
+                     <input
+                        type="number"
+                        className={styles.age}
+                        placeholder="Возраст"
+                        onChange={(e: any) => setAge(e.target.value)}
+                        defaultValue={userAge}
+                        style={styleForPopup}
+                     />
+                  )}
+                  <select
+                     className={styles.sex}
+                     defaultValue="муж"
+                     onChange={(e: any) => setSex(e.target.value)}
+                     style={styleForPopup}
+                  >
+                     <option value={sex}>Муж</option>
+                     <option value={sex}>Жен</option>
+                  </select>
+               </p>
+            </div>
             <button
                className={styles.submit}
                type="submit"

@@ -79,7 +79,7 @@ const users: User[] = [
       id: 9,
       photo: '../../../images/png/image-7.png',
       name: 'Блажевич Игорь Неблажевич',
-      age: 55,
+      age: 47,
       sex: 'муж',
       selected: false,
       mark: '',
@@ -161,7 +161,7 @@ export const userSlice = createSlice({
       },
 
       addNewUser: (state, { payload }: PayloadAction<any>) => {
-         state.list.push(payload);
+         state.list = [payload, ...state.list];
       },
 
       userFilter: (
@@ -174,8 +174,6 @@ export const userSlice = createSlice({
       filterByAge: (state, { payload }: PayloadAction<number[]>) => {
          state.filterAge = payload;
       },
-
-      userListLangth: (state) => {},
    },
 });
 
