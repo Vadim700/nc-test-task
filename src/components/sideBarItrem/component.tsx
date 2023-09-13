@@ -55,14 +55,13 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    };
 
    React.useEffect(() => {
-      setChecked(true);
+      setChecked((checked) => !checked);
    }, [dispatch, id, selected]);
 
    const userName = name.split(' ')[0] + ' ' + name.split(' ')[1];
    const singleWord = name.split(' ')[0];
 
    const isActive = location.pathname === `/${id}/notes`;
-   console.log(useLocation());
 
    return (
       <li className={styles.root}>
