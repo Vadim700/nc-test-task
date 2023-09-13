@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, ReactHTMLElement } from 'react';
 import styles from './style.module.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { toggleUserSelected } from '../../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ReactComponent as UserIcon } from '../../svg/User.svg';
 
 type SideBarItemProps = {
    id: number;
@@ -28,14 +29,17 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    id,
    photo,
    name,
-   fullName,
    selected,
    mark,
 
    actionsVisible,
 }) => {
    const [checked, setChecked] = React.useState(false);
+
+   const linkRef = React.useRef<any>(null);
    const dispatch = useAppDispatch();
+   const location = useLocation();
+
    const onClickItemList = (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (!actionsVisible) {
          e.preventDefault();
@@ -51,11 +55,14 @@ export const SideBarItem: FC<SideBarItemProps> = ({
    };
 
    React.useEffect(() => {
-      setChecked((checked) => !checked);
+      setChecked(true);
    }, [dispatch, id, selected]);
 
    const userName = name.split(' ')[0] + ' ' + name.split(' ')[1];
    const singleWord = name.split(' ')[0];
+
+   const isActive = location.pathname === `/${id}/notes`;
+   console.log(useLocation());
 
    return (
       <li className={styles.root}>
@@ -64,6 +71,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
             className={styles.label}
             onClick={onClickItemList}
             style={setActive}
+            ref={linkRef}
          >
             {!actionsVisible && (
                <input
@@ -76,12 +84,17 @@ export const SideBarItem: FC<SideBarItemProps> = ({
 
             <div
                className={styles.image}
-               style={{ paddingLeft: !actionsVisible ? '42px' : '' }}
+               style={{ paddingLeft: !actionsVisible ? '36px' : '' }}
             >
-               <img
-                  src={photo ? photo : '../../../images/png/no-image.png'}
-                  alt="user"
-               />
+               {photo ? (
+                  <img src={photo} alt="user" />
+               ) : (
+                  <UserIcon
+                     style={{
+                        color: isActive ? 'var(--white)' : 'var(--grey-2)',
+                     }}
+                  />
+               )}
             </div>
             <div className={styles.name}>
                {name.split(' ')[1] ? userName : singleWord}

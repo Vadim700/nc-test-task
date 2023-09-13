@@ -17,6 +17,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
    const [name, setName] = React.useState<string>('');
    const [age, setAge] = React.useState<string>('');
    const [sex, setSex] = React.useState<string>('');
+   const [selectedImage, setSelectedImage] = React.useState<string>('');
 
    const currentUser = useAppSelector((user) => user.users.list).filter(
       (item) => item.id === Number(currentId),
@@ -43,19 +44,37 @@ export const FormUser: React.FC<FoumUserProps> = ({
       border: props === 'editUser' ? '1px solid var(--stroke)' : '',
    };
 
+   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let file: File | undefined;
+
+      if (e.target.files) {
+         file = e.target.files[0];
+      }
+
+      if (file) {
+         const reader = new FileReader();
+
+         reader.onload = (e: ProgressEvent<FileReader>) => {
+            setSelectedImage(e.target?.result as string);
+         };
+
+         reader.readAsDataURL(file);
+      }
+   };
+
    return (
       <div className={styles.form}>
          <form action="#" className={styles.body} onSubmit={submitForm}>
             <div className={styles.bio}>
-               {/* <input type="file" name="" id="" className={styles.file} /> */}
                <div className={styles.file}>
                   <label htmlFor="fileInput" className={styles.fileLabel}>
-                     <img src="../../../images/png/no-image.png" alt="" />
+                     <img src={selectedImage} alt="" />
                   </label>
                   <input
                      type="file"
                      id="fileInput"
                      style={{ display: 'none' }}
+                     onChange={handleImageChange}
                   />
                </div>
                {props === 'newUser' && (
@@ -66,6 +85,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
                      value={name}
                      onChange={(e: any) => setName(e.target.value)}
                      style={styleForPopup}
+                     required
                   />
                )}
                {props === 'editUser' && (

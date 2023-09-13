@@ -13,7 +13,6 @@ import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
 import { Filter } from '../filter/component';
-import { count } from 'console';
 
 type SideBarProps = {};
 
@@ -30,7 +29,6 @@ export const SideBar: FC<SideBarProps> = () => {
    const dispatch = useAppDispatch();
    const data = useAppSelector((user) => user.users.list);
 
-   const dataLength = data.length;
    const selectedLength = data.filter((item) => item.selected === true).length;
    const dataSelected = data
       .filter((item) => item.selected === true)
@@ -212,7 +210,6 @@ export const SideBar: FC<SideBarProps> = () => {
                               />
                               Все
                            </label>
-                           .
                            <span className={styles.selected}>
                               {selectedLength}
                            </span>

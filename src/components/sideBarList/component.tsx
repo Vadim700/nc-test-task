@@ -66,11 +66,6 @@ export const SideBarList: FC<SideBarListProps> = ({
    }, [actionsVisible, end, filterType, list, start, value]);
 
    React.useEffect(() => {
-      // const list = userList();
-      // if (list) {
-      //    setCurrnetLength(list.length);
-      // }
-
       currentLengtn(userList()?.length);
    }, [currentLengtn, userList]);
 
