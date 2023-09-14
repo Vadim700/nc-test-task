@@ -3,6 +3,8 @@ import styles from './style.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addNewUser, editUser } from '../../redux/slices/userSlice';
 
+import { useDispatch } from 'react-redux';
+
 type FoumUserProps = {
    props: 'newUser' | 'editUser';
    onSubmit?: any;
@@ -16,7 +18,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
 }) => {
    const [name, setName] = React.useState<string>('');
    const [age, setAge] = React.useState<string>('');
-   const [sex, setSex] = React.useState<string>('');
+   const [sex, setSex] = React.useState<'муж' | 'жен'>('муж');
    const [selectedImage, setSelectedImage] = React.useState<string>('');
 
    const currentUser = useAppSelector((user) => user.users.list).filter(
@@ -31,8 +33,11 @@ export const FormUser: React.FC<FoumUserProps> = ({
    );
    const id = Math.max(...userList) + 1;
 
-   const submitForm = (e: any) => {
+   const submitForm = (
+      e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
+   ) => {
       e.preventDefault();
+
       props === 'newUser' && dispatch(addNewUser({ id, name, age, sex }));
       props === 'editUser' && dispatch(editUser({ currentId, name, age, sex }));
       setName('');
@@ -45,13 +50,9 @@ export const FormUser: React.FC<FoumUserProps> = ({
    };
 
    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let file: File | undefined;
+      if (e.target.files && e.target.files.length > 0) {
+         let file: File | undefined = e.target.files[0];
 
-      if (e.target.files) {
-         file = e.target.files[0];
-      }
-
-      if (file) {
          const reader = new FileReader();
 
          reader.onload = (e: ProgressEvent<FileReader>) => {
@@ -68,7 +69,14 @@ export const FormUser: React.FC<FoumUserProps> = ({
             <div className={styles.bio}>
                <div className={styles.file}>
                   <label htmlFor="fileInput" className={styles.fileLabel}>
-                     <img src={selectedImage} alt="" />
+                     <img
+                        src={
+                           selectedImage
+                              ? selectedImage
+                              : '../../../images/png/no-image.png'
+                        }
+                        alt="фото"
+                     />
                   </label>
                   <input
                      type="file"
@@ -83,9 +91,10 @@ export const FormUser: React.FC<FoumUserProps> = ({
                      className={styles.name}
                      placeholder="ФИО"
                      value={name}
-                     onChange={(e: any) => setName(e.target.value)}
+                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setName(e.target.value)
+                     }
                      style={styleForPopup}
-                     required
                   />
                )}
                {props === 'editUser' && (
@@ -93,7 +102,9 @@ export const FormUser: React.FC<FoumUserProps> = ({
                      type="text"
                      className={styles.name}
                      placeholder="ФИО"
-                     onChange={(e: any) => setName(e.target.value)}
+                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setName(e.target.value)
+                     }
                      style={styleForPopup}
                      defaultValue={userName}
                   />
@@ -104,9 +115,12 @@ export const FormUser: React.FC<FoumUserProps> = ({
                         type="number"
                         className={styles.age}
                         placeholder="Возраст"
-                        onChange={(e: any) => setAge(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                           setAge(e.target.value)
+                        }
                         value={age}
                         style={styleForPopup}
+                        required
                      />
                   )}
                   {props === 'editUser' && (
@@ -114,19 +128,21 @@ export const FormUser: React.FC<FoumUserProps> = ({
                         type="number"
                         className={styles.age}
                         placeholder="Возраст"
-                        onChange={(e: any) => setAge(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                           setAge(e.target.value)
+                        }
                         defaultValue={userAge}
                         style={styleForPopup}
                      />
                   )}
                   <select
                      className={styles.sex}
-                     defaultValue="муж"
+                     value={sex}
                      onChange={(e: any) => setSex(e.target.value)}
                      style={styleForPopup}
                   >
-                     <option value={sex}>Муж</option>
-                     <option value={sex}>Жен</option>
+                     <option value={'муж'}>Муж</option>
+                     <option value={'жен'}>Жен</option>
                   </select>
                </p>
             </div>
