@@ -1,22 +1,27 @@
 import React from 'react';
 import styles from './style.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addNewUser, editUser } from '../../redux/slices/userSlice';
+import { addNewUser, editUser, userImage } from '../../redux/slices/userSlice';
+import { useForm } from 'react-hook-form';
+import classnames from 'classnames';
 
 type FoumUserProps = {
    props: 'newUser' | 'editUser';
-   onSubmit?: any;
+   onSubmitModal?: any;
    currentId?: string;
+};
+
+type Inputs = {
+   name: string;
+   age: number;
+   sex: string;
 };
 
 export const FormUser: React.FC<FoumUserProps> = ({
    props,
-   onSubmit,
+   onSubmitModal,
    currentId,
 }) => {
-   const [name, setName] = React.useState<string>('');
-   const [age, setAge] = React.useState<string>('');
-   const [sex, setSex] = React.useState<'муж' | 'жен'>('муж');
    const [selectedImage, setSelectedImage] = React.useState<string>('');
 
    const currentUser = useAppSelector((user) => user.users.list).filter(
@@ -31,10 +36,8 @@ export const FormUser: React.FC<FoumUserProps> = ({
    );
    const id = Math.max(...userList) + 1;
 
-   const submitForm = (
-      e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
-   ) => {
-      e.preventDefault();
+   const submitForm = (userInfo: any) => {
+      const { name, age, sex } = userInfo;
 
       if (name && age && props === 'newUser') {
          dispatch(addNewUser({ id, name, age, sex }));
@@ -44,9 +47,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
          dispatch(editUser({ currentId, name, age, sex }));
       }
 
-      setName('');
-      setAge('');
-      onSubmit();
+      onSubmitModal(); // close Popup
    };
 
    const styleForPopup = {
@@ -61,15 +62,27 @@ export const FormUser: React.FC<FoumUserProps> = ({
 
          reader.onload = (e: ProgressEvent<FileReader>) => {
             setSelectedImage(e.target?.result as string);
+
+            dispatch(userImage(selectedImage));
          };
 
          reader.readAsDataURL(file);
       }
    };
 
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm<Inputs>({ mode: 'onBlur' });
+
    return (
       <div className={styles.form}>
-         <form action="#" className={styles.body} onSubmit={submitForm}>
+         <form
+            action="#"
+            className={styles.body}
+            onSubmit={handleSubmit(submitForm)}
+         >
             <div className={styles.bio}>
                <div className={styles.file}>
                   <label htmlFor="fileInput" className={styles.fileLabel}>
@@ -90,73 +103,81 @@ export const FormUser: React.FC<FoumUserProps> = ({
                   />
                </div>
                {props === 'newUser' && (
-                  <input
-                     type="text"
-                     className={styles.name}
-                     placeholder="ФИО"
-                     value={name}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setName(e.target.value)
-                     }
-                     style={styleForPopup}
-                  />
+                  <div className={styles.inputWrapper}>
+                     <input
+                        type="text"
+                        className={styles.name}
+                        placeholder="ФИО"
+                        style={styleForPopup}
+                        {...register('name', { required: true })}
+                        autoComplete="none"
+                     />
+                     {errors.name && (
+                        <span
+                           className={styles.error}
+                           title="Пожалуйста, заполните поле"
+                        >
+                           <img src="../../../images/icons/Mod.png" alt="" />
+                        </span>
+                     )}
+                  </div>
                )}
                {props === 'editUser' && (
                   <input
                      type="text"
                      className={styles.name}
                      placeholder="ФИО"
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setName(e.target.value)
-                     }
                      style={styleForPopup}
                      defaultValue={userName}
+                     {...register('name', { required: true })}
                   />
                )}
-               <p className={styles.row}>
+               <div className={styles.row}>
                   {props === 'newUser' && (
-                     <input
-                        type="number"
-                        className={styles.age}
-                        placeholder="Возраст"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                           setAge(e.target.value)
-                        }
-                        value={age}
-                        style={styleForPopup}
-                     />
+                     <div className={styles.inputWrapper}>
+                        <input
+                           type="number"
+                           className={styles.age}
+                           placeholder="Возраст"
+                           style={styleForPopup}
+                           {...register('age', { required: true })}
+                           autoComplete="off"
+                        />
+                        {errors.age && (
+                           <span
+                              className={styles.errorAge}
+                              title="Пожалуйста, заполните поле"
+                           >
+                              <img src="../../../images/icons/Mod.png" alt="" />
+                           </span>
+                        )}
+                     </div>
                   )}
                   {props === 'editUser' && (
                      <input
                         type="number"
                         className={styles.age}
                         placeholder="Возраст"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                           setAge(e.target.value)
-                        }
                         defaultValue={userAge}
                         style={styleForPopup}
+                        {...register('age', { required: true })}
                      />
                   )}
                   <select
                      className={styles.sex}
-                     value={sex}
-                     onChange={(e: any) => setSex(e.target.value)}
+                     {...register('sex')}
                      style={styleForPopup}
                   >
                      <option value={'муж'}>Муж</option>
                      <option value={'жен'}>Жен</option>
                   </select>
-               </p>
+               </div>
             </div>
-            <button
-               className={styles.submit}
-               type="submit"
-               onClick={submitForm}
-            >
+            <button className={styles.submit} type="submit">
                {props === 'newUser' && 'Добавить пользователя'}
                {props === 'editUser' && 'Внести изменения'}
             </button>
+            {/* {errors.name && <span>This field is required</span>} */}
          </form>
       </div>
    );

@@ -24,7 +24,7 @@ export const UserModal: React.FC<UserModalProps> = () => {
    const [open, setOpen] = React.useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
-   const onSubmit = () => setOpen(false);
+   const onSubmitModal = () => setOpen(false);
 
    const { id } = useParams() as { id: string };
 
@@ -41,7 +41,7 @@ export const UserModal: React.FC<UserModalProps> = () => {
                <p className={styles.title}>Изменить данные пользователя</p>
                <FormUser
                   props={'editUser'}
-                  onSubmit={onSubmit}
+                  onSubmitModal={onSubmitModal}
                   currentId={id}
                />
             </Box>
