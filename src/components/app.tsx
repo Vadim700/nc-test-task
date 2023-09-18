@@ -8,7 +8,6 @@ import { useAppDispatch } from '../hooks';
 
 export const App = (): JSX.Element => {
    const navigate = useNavigate();
-   const dispatch = useAppDispatch();
 
    React.useEffect((): any => {
       const goHome = () => navigate('/2/notes');

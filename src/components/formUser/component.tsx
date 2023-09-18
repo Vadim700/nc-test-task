@@ -3,8 +3,6 @@ import styles from './style.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addNewUser, editUser } from '../../redux/slices/userSlice';
 
-import { useDispatch } from 'react-redux';
-
 type FoumUserProps = {
    props: 'newUser' | 'editUser';
    onSubmit?: any;
@@ -38,8 +36,14 @@ export const FormUser: React.FC<FoumUserProps> = ({
    ) => {
       e.preventDefault();
 
-      props === 'newUser' && dispatch(addNewUser({ id, name, age, sex }));
-      props === 'editUser' && dispatch(editUser({ currentId, name, age, sex }));
+      if (name && age && props === 'newUser') {
+         dispatch(addNewUser({ id, name, age, sex }));
+      }
+
+      if ((name || age) && props === 'editUser') {
+         dispatch(editUser({ currentId, name, age, sex }));
+      }
+
       setName('');
       setAge('');
       onSubmit();
@@ -120,7 +124,6 @@ export const FormUser: React.FC<FoumUserProps> = ({
                         }
                         value={age}
                         style={styleForPopup}
-                        required
                      />
                   )}
                   {props === 'editUser' && (

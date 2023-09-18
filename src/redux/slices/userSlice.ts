@@ -134,7 +134,7 @@ export const userSlice = createSlice({
       },
 
       editUser: (state, { payload }: PayloadAction<any>) => {
-         console.log(payload, '>>> payload');
+         console.log(payload, '>>> payload - adit user');
          const { currentId, name, age, sex } = payload;
          const editedUser = state.list.find(
             (item) => item.id === Number(currentId),
@@ -162,6 +162,7 @@ export const userSlice = createSlice({
       },
 
       addNewUser: (state, { payload }: PayloadAction<any>) => {
+         console.log(payload, '>>> payload - add new user');
          state.list = [payload, ...state.list];
       },
 
