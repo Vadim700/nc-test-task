@@ -117,12 +117,14 @@ type UserState = {
    list: User[];
    filter: string;
    filterAge: number[];
+   userImage: string;
 };
 
 const initialState: UserState = {
    list: users,
    filter: 'все',
    filterAge: [24, 48],
+   userImage: '',
 };
 
 export const userSlice = createSlice({
@@ -176,6 +178,11 @@ export const userSlice = createSlice({
       filterByAge: (state, { payload }: PayloadAction<number[]>) => {
          state.filterAge = payload;
       },
+
+      userImage: (state, { payload }: PayloadAction<any>) => {
+         console.log(payload, '>>> userImage payload');
+         state.userImage = payload;
+      },
    },
 });
 
@@ -188,6 +195,7 @@ export const {
    addNewUser,
    userFilter,
    filterByAge,
+   userImage,
 } = userSlice.actions;
 
 export default userSlice.reducer;

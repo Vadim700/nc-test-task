@@ -390,9 +390,15 @@
 .fadeBodyEnterActive {
 	height: 130px;
 	transition: all 0.3s ease 0s;
+	@media (max-width: $mobileSmall) {
+		height: 175px;
+	}
 }
 .fadeBodyExit {
 	height: 130px;
+	@media (max-width: $mobileSmall) {
+		height: 175px;
+	}
 }
 .fadeBodyExitActive {
 	height: 0;

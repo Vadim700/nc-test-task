@@ -14,6 +14,8 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
       (item) => item.id === Number(id),
    );
 
+   const userImage = useAppSelector((item) => item.users.userImage);
+
    return (
       <header className={styles.root}>
          <div className={styles.image}>
@@ -27,13 +29,15 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
          <div className={styles.row}>
             <div className={styles.name}>{user?.name}</div>
             <span className={styles.age}>
-               {user?.age ? user?.age + ' лет,' : <LoaderHeaderBody />}
+               {user?.age ? user?.age + ' лет,  ' : <LoaderHeaderBody />}
                {user?.sex}
             </span>
          </div>
          <span className={styles.edit}>
             <DropDown props={'userDropDown'} />
          </span>
+
+         <p>{userImage}</p>
       </header>
    );
 };

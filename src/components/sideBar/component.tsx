@@ -43,7 +43,7 @@ export const SideBar: FC<SideBarProps> = () => {
       dispatch(setSelectAll(allChecked));
    };
 
-   const onSubmit = (): void => {};
+   const onSubmitModal = (): void => {};
 
    const closeButtonStyles = {
       transform: visibleSearch || openForm ? 'rotate(135deg)' : '',
@@ -184,7 +184,10 @@ export const SideBar: FC<SideBarProps> = () => {
                         mountOnEnter
                      >
                         <div className={styles.innerForm}>
-                           <FormUser props="newUser" onSubmit={onSubmit} />
+                           <FormUser
+                              props="newUser"
+                              onSubmitModal={onSubmitModal}
+                           />
                         </div>
                      </CSSTransition>
                   </div>
@@ -337,7 +340,10 @@ export const SideBar: FC<SideBarProps> = () => {
                      mountOnEnter
                   >
                      <div className={styles.innerForm}>
-                        <FormUser props="newUser" onSubmit={onSubmit} />
+                        <FormUser
+                           props="newUser"
+                           onSubmitModal={onSubmitModal}
+                        />
                      </div>
                   </CSSTransition>
                </div>

@@ -151,3 +151,28 @@ p {
 	font-style: normal;
 	color: var(--black);
 }
+
+// form validation
+.inputWrapper {
+	position: relative;
+	display: flex;
+	grid-area: name;
+
+	input {
+		flex: 1 1 100%;
+	}
+}
+.error {
+	position: absolute;
+
+	top: 55%;
+	transform: translateY(-50%);
+	right: 10px;
+}
+.errorAge {
+	position: absolute;
+
+	top: 55%;
+	transform: translateY(-50%);
+	right: 35px;
+}
