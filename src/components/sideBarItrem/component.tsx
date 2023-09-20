@@ -23,6 +23,7 @@ interface ActiveStyles {
    backgroundColor: string;
    outline: string;
    cursor: string;
+   paddingLeft: string;
 }
 
 export const SideBarItem: FC<SideBarItemProps> = ({
@@ -51,6 +52,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
          backgroundColor: isActive ? 'var(--grey-2)' : 'var(--white)',
          outline: isActive ? '1px solid var(--white)' : '',
          cursor: !actionsVisible ? 'auto' : 'pointer',
+         paddingLeft: !actionsVisible ? '40px' : '',
       };
    };
 
@@ -81,10 +83,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
                />
             )}
 
-            <div
-               className={styles.image}
-               style={{ paddingLeft: !actionsVisible ? '36px' : '' }}
-            >
+            <div className={styles.image}>
                {photo ? (
                   <img src={photo} alt="user" />
                ) : (
