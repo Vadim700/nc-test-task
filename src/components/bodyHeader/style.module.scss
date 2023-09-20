@@ -31,6 +31,7 @@
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
+	overflow: hidden;
 
 	@media (max-width: $mobileSmall) {
 		width: 60px;

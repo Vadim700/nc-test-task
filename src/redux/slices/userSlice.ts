@@ -117,14 +117,12 @@ type UserState = {
    list: User[];
    filter: string;
    filterAge: number[];
-   userImage: string;
 };
 
 const initialState: UserState = {
    list: users,
    filter: 'все',
    filterAge: [24, 48],
-   userImage: '',
 };
 
 export const userSlice = createSlice({
@@ -136,8 +134,7 @@ export const userSlice = createSlice({
       },
 
       editUser: (state, { payload }: PayloadAction<any>) => {
-         console.log(payload, '>>> payload - adit user');
-         const { currentId, name, age, sex } = payload;
+         const { currentId, name, age, sex, photo } = payload;
          const editedUser = state.list.find(
             (item) => item.id === Number(currentId),
          );
@@ -145,6 +142,7 @@ export const userSlice = createSlice({
             editedUser.name = name;
             editedUser.age = age;
             editedUser.sex = sex;
+            editedUser.photo = photo;
          }
       },
 
@@ -163,8 +161,7 @@ export const userSlice = createSlice({
          state.list = state.list.filter((item) => !payload.includes(item.id));
       },
 
-      addNewUser: (state, { payload }: PayloadAction<any>) => {
-         console.log(payload, '>>> payload - add new user');
+      addNewUser: (state, { payload }: PayloadAction<User>) => {
          state.list = [payload, ...state.list];
       },
 
@@ -178,11 +175,6 @@ export const userSlice = createSlice({
       filterByAge: (state, { payload }: PayloadAction<number[]>) => {
          state.filterAge = payload;
       },
-
-      userImage: (state, { payload }: PayloadAction<any>) => {
-         console.log(payload, '>>> userImage payload');
-         state.userImage = payload;
-      },
    },
 });
 
@@ -195,7 +187,6 @@ export const {
    addNewUser,
    userFilter,
    filterByAge,
-   userImage,
 } = userSlice.actions;
 
 export default userSlice.reducer;
