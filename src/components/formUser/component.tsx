@@ -8,6 +8,7 @@ type FoumUserProps = {
    props: 'newUser' | 'editUser';
    onSubmitModal?: any;
    currentId?: string;
+   onSumbit?: any;
 };
 
 type Inputs = {
@@ -20,6 +21,7 @@ export const FormUser: React.FC<FoumUserProps> = ({
    props,
    onSubmitModal,
    currentId,
+   onSumbit,
 }) => {
    const [photo, setPhoto] = React.useState<string>('');
 
@@ -44,9 +46,10 @@ export const FormUser: React.FC<FoumUserProps> = ({
       }
 
       if ((name || age) && props === 'editUser') {
-         dispatch(editUser({ currentId, name, age, sex, photo }));
+         dispatch(editUser({ currentId, name, age, sex, photo })); // here is strange behaviour
       }
 
+      onSumbit(false);
       onSubmitModal(); // for closed Popup
    };
 

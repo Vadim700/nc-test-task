@@ -45,6 +45,10 @@ export const SideBar: FC<SideBarProps> = () => {
 
    const onSubmitModal = (): void => {};
 
+   const closeUserForm = (data: any) => {
+      setOpenForm(data);
+   };
+
    const closeButtonStyles = {
       transform: visibleSearch || openForm ? 'rotate(135deg)' : '',
       backgroundColor: visibleSearch || openForm ? 'var(--blue)' : '',
@@ -187,6 +191,7 @@ export const SideBar: FC<SideBarProps> = () => {
                            <FormUser
                               props="newUser"
                               onSubmitModal={onSubmitModal}
+                              onSumbit={closeUserForm}
                            />
                         </div>
                      </CSSTransition>
@@ -343,6 +348,7 @@ export const SideBar: FC<SideBarProps> = () => {
                         <FormUser
                            props="newUser"
                            onSubmitModal={onSubmitModal}
+                           onSumbit={closeUserForm}
                         />
                      </div>
                   </CSSTransition>

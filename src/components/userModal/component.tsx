@@ -28,6 +28,8 @@ export const UserModal: React.FC<UserModalProps> = () => {
 
    const { id } = useParams() as { id: string };
 
+   const closeForm = (): void => {};
+
    return (
       <>
          <Button onClick={handleOpen}>Изменить</Button>
@@ -43,6 +45,7 @@ export const UserModal: React.FC<UserModalProps> = () => {
                   props={'editUser'}
                   onSubmitModal={onSubmitModal}
                   currentId={id}
+                  onSumbit={closeForm}
                />
             </Box>
          </Modal>
