@@ -134,6 +134,7 @@ export const userSlice = createSlice({
       },
 
       editUser: (state, { payload }: PayloadAction<any>) => {
+         console.log(payload, '>>> payload');
          const { currentId, name, age, sex, photo } = payload;
          const editedUser = state.list.find(
             (item) => item.id === Number(currentId),
@@ -142,6 +143,8 @@ export const userSlice = createSlice({
             editedUser.name = name;
             editedUser.age = age;
             editedUser.sex = sex;
+         }
+         if (editedUser && photo) {
             editedUser.photo = photo;
          }
       },

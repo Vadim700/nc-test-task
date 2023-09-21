@@ -48,6 +48,11 @@ p {
 		grid-template-areas:
 			"name name"
 			"side bio";
+		grid-template-columns: 90px minmax(122px, 1fr);
+
+		input {
+			font-size: 12px;
+		}
 	}
 }
 
@@ -56,6 +61,10 @@ p {
 	grid-area: side;
 	box-shadow: 0px 1px 4px 0px rgba(19, 19, 19, 0.1);
 	border-radius: 4px;
+
+	@media (max-width: $mobileSmall) {
+		min-width: 90px;
+	}
 }
 
 .fileLabel {
@@ -94,7 +103,6 @@ p {
 
 .name {
 	padding: 0;
-
 	grid-area: name;
 }
 
@@ -144,7 +152,6 @@ p {
 
 .age {
 	font-family: "SF Pro Display", sans-serif;
-	font-family: SF Pro Display;
 	font-size: 12px;
 	line-height: 1.42;
 	font-weight: 400;

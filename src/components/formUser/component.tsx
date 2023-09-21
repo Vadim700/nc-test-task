@@ -46,11 +46,11 @@ export const FormUser: React.FC<FoumUserProps> = ({
       }
 
       if ((name || age) && props === 'editUser') {
-         dispatch(editUser({ currentId, name, age, sex, photo })); // here is strange behaviour
+         dispatch(editUser({ currentId, name, age, sex, photo }));
       }
 
-      onSumbit(false);
-      onSubmitModal(); // for closed Popup
+      props === 'newUser' && onSumbit(false); // for closed userForm
+      props === 'editUser' && onSubmitModal(); // for closed Popup
    };
 
    const styleForPopup = {
