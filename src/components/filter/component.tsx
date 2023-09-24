@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styles from './style.module.scss';
 import { RangeSlider } from '../range/component';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { filterByAge, userFilter } from '../../redux/slices/userSlice';
 
 export const Filter: React.FC = () => {

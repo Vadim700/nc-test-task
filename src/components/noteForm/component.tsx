@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.scss';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addNote, editNote } from '../../redux/slices/noteSlice';
 
 type NoteFormProps = {

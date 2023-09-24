@@ -4,7 +4,7 @@ import { SideBarList } from '../sideBarList/component';
 import { ReactComponent as SearchIcon } from '../../svg/Search.svg';
 import { ReactComponent as FilterIcon } from '../../svg/Filter.svg';
 import { ReactComponent as PlusIcon } from '../../svg/Plus.svg';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
    deleteSelectedUsers,
    setSelectAll,
@@ -13,6 +13,7 @@ import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
 import { Filter } from '../filter/component';
+import { useToggle } from '../../hooks/useToggle';
 
 type SideBarProps = {};
 
@@ -20,10 +21,11 @@ export const SideBar: FC<SideBarProps> = () => {
    const [visibleSearch, setVisibleSearch] = React.useState<boolean>(false);
    const [actionsVisible, setActionsVisible] = React.useState<boolean>(true);
    const [allChecked, setAllChecked] = React.useState<boolean>(false);
-   const [value, setValue] = React.useState<string>('');
    const [openForm, setOpenForm] = React.useState<boolean>(false);
    const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
    const [filterOpen, setFilterOpen] = React.useState<boolean>(false);
+
+   const [value, setValue] = React.useState<string>('');
    const [currentCount, setCurrentCount] = React.useState(0);
 
    const dispatch = useAppDispatch();
@@ -61,6 +63,7 @@ export const SideBar: FC<SideBarProps> = () => {
 
    const onClickMenu = () => {
       setMenuOpen((open) => !open);
+
       document.body.style.overflow = menuOpen ? 'visible' : 'hidden';
    };
 

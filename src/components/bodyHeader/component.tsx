@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.module.scss';
 import { DropDown } from '../dropDown/component';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../redux/hooks';
 import { LoaderHeaderBody } from '../loaderBodyHeader/components';
 
 type BodyHeaderProps = {};

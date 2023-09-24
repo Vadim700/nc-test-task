@@ -2,7 +2,7 @@ import React, { FC, ReactHTMLElement } from 'react';
 import styles from './style.module.scss';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { toggleUserSelected } from '../../redux/slices/userSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { ReactComponent as UserIcon } from '../../svg/User.svg';
 
 type SideBarItemProps = {

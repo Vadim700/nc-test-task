@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { SideBarItem } from '../sideBarItrem/component';
 import styles from './style.module.scss';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../redux/hooks';
 
 type SideBarListProps = {
    actionsVisible: boolean;
