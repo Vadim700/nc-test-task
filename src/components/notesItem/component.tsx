@@ -3,7 +3,7 @@ import styles from './style.module.scss';
 import { DropDown } from '../dropDown/component';
 
 type NotesItemProps = {
-   id: number;
+   id?: number;
    title: string;
    date: string;
    image?: string;

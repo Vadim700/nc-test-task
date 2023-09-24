@@ -10,7 +10,7 @@ export type User = {
 };
 
 export type Note = {
-   id: number;
+   id?: number;
    title: string;
    date: string;
    image?: string;

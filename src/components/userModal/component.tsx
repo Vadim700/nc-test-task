@@ -22,9 +22,6 @@ const popupBodyStyle = {
 
 export const UserModal: React.FC<UserModalProps> = () => {
    const [open, setOpen] = React.useState(false);
-   const handleOpen = () => setOpen(true);
-   const handleClose = () => setOpen(false);
-   const onSubmitModal = () => setOpen(false);
 
    const { id } = useParams() as { id: string };
 
@@ -32,10 +29,10 @@ export const UserModal: React.FC<UserModalProps> = () => {
 
    return (
       <>
-         <Button onClick={handleOpen}>Изменить</Button>
+         <Button onClick={() => setOpen(true)}>Изменить</Button>
          <Modal
             open={open}
-            onClose={handleClose}
+            onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
          >
@@ -43,7 +40,7 @@ export const UserModal: React.FC<UserModalProps> = () => {
                <p className={styles.title}>Изменить данные пользователя</p>
                <FormUser
                   props={'editUser'}
-                  onSubmitModal={onSubmitModal}
+                  onSubmitModal={() => setOpen(false)}
                   currentId={id}
                   onSumbit={closeForm}
                />
