@@ -9,6 +9,8 @@ type SideBarListProps = {
    currentLengtn: any;
 };
 
+const MemoizedSideBarItem = React.memo(SideBarItem);
+
 export const SideBarList: FC<SideBarListProps> = ({
    actionsVisible,
    value,
@@ -28,7 +30,7 @@ export const SideBarList: FC<SideBarListProps> = ({
                )
                .filter((user) => user.age >= start && user.age <= end)
                .map((user) => (
-                  <SideBarItem
+                  <MemoizedSideBarItem
                      key={user.id}
                      {...user}
                      actionsVisible={actionsVisible}
@@ -42,7 +44,7 @@ export const SideBarList: FC<SideBarListProps> = ({
                .filter((user) => user.sex === 'муж')
                .filter((user) => user.age >= start && user.age <= end)
                .map((user) => (
-                  <SideBarItem
+                  <MemoizedSideBarItem
                      key={user.id}
                      {...user}
                      actionsVisible={actionsVisible}
@@ -56,7 +58,7 @@ export const SideBarList: FC<SideBarListProps> = ({
                .filter((user) => user.sex === 'жен')
                .filter((user) => user.age >= start && user.age <= end)
                .map((user) => (
-                  <SideBarItem
+                  <MemoizedSideBarItem
                      key={user.id}
                      {...user}
                      actionsVisible={actionsVisible}

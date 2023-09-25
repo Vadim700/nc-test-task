@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './style.module.scss';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
@@ -10,10 +10,13 @@ type IsActiveProps = {
    isActive: boolean;
 };
 
-export const Menu: React.FC<MenuProps> = () => {
-   const setActive = ({ isActive }: IsActiveProps): React.CSSProperties => {
-      return { color: isActive ? 'var(--blue)' : 'var(--gray)' };
-   };
+export const Menu: React.FC<MenuProps> = React.memo(() => {
+   const setActive = useCallback(
+      ({ isActive }: IsActiveProps): React.CSSProperties => {
+         return { color: isActive ? 'var(--blue)' : 'var(--gray)' };
+      },
+      [],
+   );
 
    return (
       <nav className={styles.root}>
@@ -48,4 +51,4 @@ export const Menu: React.FC<MenuProps> = () => {
          </span>
       </nav>
    );
-};
+});

@@ -13,9 +13,10 @@ import { FormUser } from '../formUser/component';
 import { CSSTransition } from 'react-transition-group';
 import { GoSidebarCollapse } from 'react-icons/go';
 import { Filter } from '../filter/component';
-import { useToggle } from '../../hooks/useToggle';
 
 type SideBarProps = {};
+
+const MemoizedSideBarList = React.memo(SideBarList);
 
 export const SideBar: FC<SideBarProps> = () => {
    const [visibleSearch, setVisibleSearch] = React.useState<boolean>(false);

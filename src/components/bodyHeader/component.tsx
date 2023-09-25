@@ -7,7 +7,7 @@ import { LoaderHeaderBody } from '../loaderBodyHeader/components';
 
 type BodyHeaderProps = {};
 
-export const BodyHeader: React.FC<BodyHeaderProps> = () => {
+export const BodyHeader: React.FC<BodyHeaderProps> = React.memo(() => {
    const { id } = useParams();
 
    const user = useAppSelector((user) => user.users.list).find(
@@ -36,4 +36,4 @@ export const BodyHeader: React.FC<BodyHeaderProps> = () => {
          </span>
       </header>
    );
-};
+});

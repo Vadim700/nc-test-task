@@ -6,7 +6,7 @@ import { Content } from '../content/component';
 
 type BodyProps = {};
 
-export const Body: React.FC<BodyProps> = () => {
+export const Body: React.FC<BodyProps> = React.memo(() => {
    return (
       <div className={styles.root}>
          <BodyHeader />
@@ -14,4 +14,4 @@ export const Body: React.FC<BodyProps> = () => {
          <Content />
       </div>
    );
-};
+});

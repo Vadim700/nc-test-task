@@ -3,11 +3,14 @@ import { SideBar } from '../sideBar/component';
 
 import { Outlet } from 'react-router-dom';
 
-export const Layout = () => {
+const MemoizedOutlet = React.memo(Outlet);
+const MemoizedSideBar = React.memo(SideBar);
+
+export const Layout = React.memo(() => {
    return (
       <>
-         <SideBar />
-         <Outlet />
+         <MemoizedSideBar />
+         <MemoizedOutlet />
       </>
    );
-};
+});
