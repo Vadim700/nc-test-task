@@ -7,6 +7,8 @@ import { useAppSelector } from '../../redux/hooks';
 export const Notes: React.FC = () => {
    const notes = useAppSelector((item) => item.notes.list);
 
+   console.log(notes)
+
    return (
       <div className={styles.root}>
          <ul className={styles.list}>
