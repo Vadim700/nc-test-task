@@ -85,6 +85,8 @@ p {
 
 		border-radius: 50%;
 		overflow: hidden;
+		object-fit: cover;
+		aspect-ratio: 1;
 	}
 }
 
